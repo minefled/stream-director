@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { afterUpdate, onMount } from "svelte";
 
     import type APIClient from "../../api/APIClient";
     import type { StreamElement } from "../../api/types/StreamElement";
@@ -7,16 +7,35 @@
 
     import TextInput from "./components/TextInput.svelte";
 
-    let expanded:boolean = true;
+    let expanded:boolean = false;
     let contentHeight:number = 0;
+    let content:HTMLDivElement = null;
 
     export let api:APIClient;
     export let data:StreamElement;
+    export let selectedSceneID:string = "";
 
     let components:Component[] = [];
+    let state:{ [key: string]: any; } = {};
 
     onMount(() => {
         components = data.ui.components;
+
+        /* == Makes the whole "starting"-animation of the page look better == */
+        setTimeout(() => {
+            contentHeight = content.clientHeight;
+            expanded = true;
+        }, 150);
+    });
+
+    afterUpdate(() => {
+        contentHeight = content.clientHeight;
+
+        for(var s of data.state.scenes) {
+            if(s.id == selectedSceneID) {
+                state = s.state;
+            }
+        }
     });
 </script>
 
@@ -28,10 +47,10 @@
     </div>
 
     <div class="details {expanded ? "expaned":""}" style="height: {expanded ? contentHeight:0}px">
-        <div class="content" bind:clientHeight={contentHeight}>
+        <div class="content" bind:clientHeight={contentHeight} bind:this={content}>
             {#each components as c}
                 {#if c.type == "text-input"}
-                    <TextInput name={c.name} />
+                    <TextInput name={c.name} value={state[c.propertyKey] || ""}/>
                 {/if}
             {/each}
         </div>

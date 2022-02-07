@@ -8,6 +8,7 @@
 
     export let api:APIClient;
     export let elements:StreamElement[] = [];
+    export let selectedSceneID:string = "";
 
     onMount(async () => {
         api.events.createEventAwaiter(event => event.type == "connect", async () => {
@@ -18,7 +19,7 @@
 
 <div class="elements">
     {#each elements as element}
-        <StreamElementComponent api={api} data={element} />
+        <StreamElementComponent api={api} data={element} selectedSceneID={selectedSceneID}/>
     {/each}
 </div>
 

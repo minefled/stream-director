@@ -1,5 +1,6 @@
 <script lang="ts">
     export let name:string;
+    export let value:string = "";
 </script>
 
 <div class="text-input">
@@ -7,7 +8,7 @@
         {name}    
     </div>
     <div class="input-section">
-        <input type="text" >
+        <input type="text" bind:value={value}>
     </div>
 </div>
 
