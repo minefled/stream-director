@@ -16,10 +16,22 @@ export class EventHandler {
     private eventAwaiters:EventAwaiter[] = [];
     private eventListeners:EventListener[] = [];
 
+    private isDispatching = false;
+    private awaiterQueue:EventAwaiter[] = [];
+
     constructor() {
     }
 
     createEventAwaiter(matchingFunction:(event:Event) => boolean, callback:(event:Event) => void) {
+        if(this.isDispatching) {
+            this.awaiterQueue.push({
+                eventMatcher: matchingFunction,
+                callback
+            });
+
+            return;
+        }
+
         this.eventAwaiters.push({
             eventMatcher: matchingFunction,
             callback
@@ -34,15 +46,17 @@ export class EventHandler {
     }
 
     dispatch(event:Event) {
+        this.isDispatching = true;
+
+        let removeIndices:number[] = [];
+
         // Call all event awaiters
         for(var a=0; a<this.eventAwaiters.length; a++) {
             var awaiter = this.eventAwaiters[a];
 
             if(awaiter.eventMatcher.call(null, event) == true) {
                 awaiter.callback.call(null, event);
-
-                // Remove awaiter after it has been called
-                this.eventAwaiters.splice(a, 1);
+                removeIndices.push(a);
             }
         }
 
@@ -51,6 +65,16 @@ export class EventHandler {
             if(listener.eventMatcher.call(null, event) == true) {
                 listener.callback.call(null, event);
             }
+        }
+
+        for(var i of removeIndices) {
+            // Remove awaiter after it has been called
+            this.eventAwaiters.splice(i, 1);
+        }
+
+        this.isDispatching = false;
+        for(var aw of this.awaiterQueue) {
+            this.eventAwaiters.push(aw);
         }
     }
 

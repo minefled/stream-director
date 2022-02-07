@@ -2,13 +2,15 @@ import { EventHandler } from "./events/EventHandler";
 import type { APICache } from "./types/Cache";
 import type { Packet } from "./types/Packet";
 import type { SceneData } from "./types/SceneData";
+import type { StreamElement } from "./types/StreamElement";
 
 export default class APIClient {
 
     ws:WebSocket;
     events:EventHandler;
 
-    cache:APICache;
+    cache:APICache = {};
+    isConnected:boolean = false;
 
     constructor(
         public host:string
@@ -27,12 +29,16 @@ export default class APIClient {
         let _this = this;
 
         this.ws.onopen = () => {
+            _this.isConnected = true;
+
             this.events.dispatch({
                 type: "connect"
             });
         }
 
         this.ws.onclose = () => {
+            _this.isConnected = false;
+
             setTimeout(() => {
                 _this.connect();
             }, 1000);
@@ -76,6 +82,12 @@ export default class APIClient {
                 });
 
                 break;
+
+            case "elements":
+                this.events.dispatch({
+                    type: "packet",
+                    data: { packet }
+                });
         }
     }
 
@@ -109,6 +121,20 @@ export default class APIClient {
 
     selectScene(sceneID:string) {
         this.sendData({type: "select_scene", data: {scene_id: sceneID}});
+    }
+
+    async getElements():Promise<StreamElement[]> {
+        return new Promise((resolve, reject) => {
+            this.sendData({type: "get", data: {resource: "elements"}});
+
+            this.events.createEventAwaiter(
+                event => event.type == "packet" && event.data?.packet?.type == "get_response" && event.data?.packet?.data?.resource == "elements",
+                event => {
+                    this.cache.elements = event.data.packet.data.elements;
+                    resolve(this.cache.elements);
+                }
+            )
+        });
     }
 
 }

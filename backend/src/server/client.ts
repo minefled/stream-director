@@ -49,6 +49,16 @@ export class Client {
                 }
             })
         }
+
+        if(resource == "elements") {
+            this.send({
+                type: "get_response",
+                data: {
+                    resource,
+                    elements: this.server.service.elements.exportFrontendData()
+                }
+            })
+        }
     }
 
     private handleSelectScenePacket(packet:Packet) {

@@ -8,6 +8,7 @@ import { ElementClass } from "../types/ElementClass";
 import type { StreamElementData } from "../element_sdk/element/StreamElementData";
 import { Service } from "../service";
 import { StreamElementStoredData } from "../element_sdk/element/StreamElementStoredData";
+import { StreamElementFrontendData } from "../element_sdk/element/StreamElementFrontendData";
 
 export class ElementManager {
 
@@ -110,6 +111,10 @@ export class ElementManager {
                 scenes: e.data.scenes || []
             });
         }
+    }
+
+    exportFrontendData():StreamElementFrontendData[] {
+        return this.elements.map(x => x.__exportFrontendData());
     }
 
 }

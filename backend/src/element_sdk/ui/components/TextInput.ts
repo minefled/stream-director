@@ -23,7 +23,7 @@ export function TextInput(name:string, options={}) {
 
                     if(!target.hasOwnProperty("__uiComponents")) target.__uiComponents = [];
                     target.__uiComponents.push({
-                        type: "text",
+                        type: "text-input",
                         
                         name,
                         propertyKey,

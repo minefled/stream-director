@@ -6,6 +6,7 @@ import type { StreamElementUiData } from "./StreamElementUiData";
 import { StreamElementData } from "./StreamElementData";
 import EventEmitter = require("events");
 import { StreamElementStoredData } from "./StreamElementStoredData";
+import { StreamElementFrontendData } from "./StreamElementFrontendData";
 
 export class StreamElement {
 
@@ -55,6 +56,16 @@ export class StreamElement {
         return {
             elementClassID: this.__classID,
             data: this.__exportData()
+        };
+    }
+
+    __exportFrontendData():StreamElementFrontendData {
+        return {
+            id: this.__id,
+            state: {
+                scenes: this.__scenes
+            },
+            ui: this.__getUIData()
         };
     }
 

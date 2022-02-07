@@ -1,8 +1,9 @@
+import { StreamElementFrontendData } from "../../element_sdk/element/StreamElementFrontendData";
 import { SceneData } from "../../scenes/SceneData";
 
 export interface PacketData {
     /* == request Packet == */
-    resource?:"scenes"|"element_states"|"element_ui_data"|"is_live";
+    resource?:"scenes"|"elements"|"element_states"|"element_ui_data"|"is_live";
 
     /* == is_live Packet == */
     is_live?:boolean;
@@ -12,6 +13,9 @@ export interface PacketData {
     
     /* == select_scene Packet == */
     scene_id?:string;
+
+    /* == elements packet == */
+    elements?:StreamElementFrontendData[];
 }
 
 export interface Packet {

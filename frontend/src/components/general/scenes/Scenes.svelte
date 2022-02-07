@@ -12,15 +12,18 @@
     export let scenes:_Scene[] = [];
     export let api:APIClient;
 
-    onMount(async () => {
+    onMount(() => {
         api.events.createEventAwaiter(event => event.type == "connect", async () => {
             let sceneData = await api.getScenes();
             viewedSceneID = sceneData.selectedSceneID;
             scenes = sceneData.scenes;
+
+            // Initially select the viewed scene
+            selectedSceneID = viewedSceneID;
         });
 
         api.events.createEventListener(
-            event => {console.log(event, event.type == "select_scene"); return event.type == "select_scene";},
+            event => event.type == "select_scene",
             event => {
                 viewedSceneID = event.data.scene_id;
             }

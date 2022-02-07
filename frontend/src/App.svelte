@@ -6,6 +6,7 @@
 	import Header from "./components/general/header/Header.svelte";
 	import Scenes from "./components/general/scenes/Scenes.svelte";
 	import CategoryList from "./components/general/streamelements/CategoryList.svelte";
+import StreamElementList from "./components/general/streamelements/StreamElementList.svelte";
 
 	export let api:APIClient;
 
@@ -19,7 +20,7 @@
 
 	<div class="content">
 		<Scenes api={api} />
-		<CategoryList />
+		<StreamElementList api={api} />
 	</div>
 </div>
 
