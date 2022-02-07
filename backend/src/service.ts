@@ -11,7 +11,7 @@ export class Service {
     scenes:SceneManager;
 
     constructor() {
-        this.server = new WebSocket();
+        this.server = new WebSocket(this);
 
         let rawInitialData = this.loadStoredData();
 

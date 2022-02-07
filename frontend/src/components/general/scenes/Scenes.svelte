@@ -1,30 +1,38 @@
 <script lang="ts">
+    import { onMount } from "svelte";
+
+    import type APIClient from "../../../api/APIClient";
+    import type { Scene as _Scene } from "../../../api/types/Scene";
+
     import Scene from "./Scene.svelte";
 
     export let selectedSceneID:string   = "";
     export let viewedSceneID:string     = "";
 
-    export let scenes:any[] = [
-        {
-            id: "781c69a2-7ed7-43bf-b395-1554aa3eb46e",
-            name: "Intro"
-        },
-        {
-            id: "93e3d261-0260-4008-bb51-22c85393758a",
-            name: "Just Chatting"
-        },
-        {
-            id: "71f8293c-dd40-4f42-88bb-cdd7bd3dfd06",
-            name: "Game"
-        },
-        {
-            id: "896ef77f-dddd-47bd-9f57-cf330f9c65ca",
-            name: "Outro"
-        }
-    ];
+    export let scenes:_Scene[] = [];
+    export let api:APIClient;
+
+    onMount(async () => {
+        api.events.createEventAwaiter(event => event.type == "connect", async () => {
+            let sceneData = await api.getScenes();
+            viewedSceneID = sceneData.selectedSceneID;
+            scenes = sceneData.scenes;
+        });
+
+        api.events.createEventListener(
+            event => {console.log(event, event.type == "select_scene"); return event.type == "select_scene";},
+            event => {
+                viewedSceneID = event.data.scene_id;
+            }
+        );
+    });
 
     function handleSelect(e) {
         selectedSceneID = e.detail?.id || "";
+    }
+
+    function handleView(e) {
+        api.selectScene(e.detail?.id || "");
     }
 </script>
 
@@ -46,6 +54,7 @@
                 appearAnimationDelay={i*0.1}
 
                 on:select={handleSelect}
+                on:view={handleView}
             />
         {/each}
     </div>
@@ -57,7 +66,7 @@
 
 <style lang="scss">
     .scenes {
-        width: 10vw;
+        width: 12vw;
         height: 100%;
 
         background-color: #28292e;
@@ -110,7 +119,7 @@
     .connection-corner {
         position: fixed;
         top: 50px;
-        left: 10vw;
+        left: 12vw;
 
         height: 30px;
         width: 30px;

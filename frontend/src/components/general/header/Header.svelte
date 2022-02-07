@@ -70,7 +70,7 @@
     }
 
     .time-section {
-        width: calc(10vw - 24px);
+        width: calc(12vw - 24px);
 
         margin-left: 12px;
         margin-right: 12px;
@@ -80,7 +80,7 @@
         font-family: "Montserrat", Arial;
         color: #ffffff;
 
-        text-shadow: 0px 2px 12px #222;
+        text-shadow: 0px 0px 20px #555;
         text-align: center;
     }
 

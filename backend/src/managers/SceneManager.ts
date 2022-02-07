@@ -21,4 +21,11 @@ export class SceneManager {
         this.service.elements.selectScene(id);
     }
 
+    exportData():SceneData {
+        return {
+            selectedSceneID: this.selectedSceneID,
+            scenes: this.scenes
+        };
+    }
+
 }

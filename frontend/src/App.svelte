@@ -1,14 +1,24 @@
 <script lang="ts">
+	import { onMount } from "svelte";
+
+	import type APIClient from "./api/APIClient";
+
 	import Header from "./components/general/header/Header.svelte";
 	import Scenes from "./components/general/scenes/Scenes.svelte";
 	import CategoryList from "./components/general/streamelements/CategoryList.svelte";
+
+	export let api:APIClient;
+
+	onMount(() => {
+		console.log(api);
+	});
 </script>
 
 <div class="app">
 	<Header />
 
 	<div class="content">
-		<Scenes />
+		<Scenes api={api} />
 		<CategoryList />
 	</div>
 </div>
