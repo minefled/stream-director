@@ -1,6 +1,22 @@
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
+
     export let name:string;
     export let value:string = "";
+
+    let dispatch = createEventDispatcher();
+    let inputElement:HTMLInputElement;
+
+    function dispatchUpdateEvent() {
+        dispatch("update", { value });
+    }
+
+    function handleKeyDown(e:KeyboardEvent) {
+        if(e.key == "Enter") {
+            inputElement.blur();
+            dispatchUpdateEvent();
+        }
+    }
 </script>
 
 <div class="text-input">
@@ -8,7 +24,7 @@
         {name}    
     </div>
     <div class="input-section">
-        <input type="text" bind:value={value}>
+        <input type="text" bind:value={value} on:keydown={handleKeyDown} bind:this={inputElement}>
     </div>
 </div>
 

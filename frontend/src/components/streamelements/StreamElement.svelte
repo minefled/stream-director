@@ -21,6 +21,15 @@
     onMount(() => {
         components = data.ui.components;
 
+        api.events.createEventListener(
+            e => e.type == "update_element_state_value",
+            e => {
+                if(e.data.element_id != data.id) return;
+
+                updateStateValue(e.data.property_key, e.data.value, e.data.scene_id);
+            }
+        )
+
         /* == Makes the whole "starting"-animation of the page look better == */
         setTimeout(() => {
             contentHeight = content.clientHeight;
@@ -37,6 +46,27 @@
             }
         }
     });
+
+    function updateStateValue(propertyKey:string, value:any, sceneID:string = selectedSceneID) {
+        for (let i = 0; i < data.state.scenes.length; i++) {
+            var scene = data.state.scenes[i];
+            
+            if(scene.id == sceneID) {
+                data.state.scenes[i].state[propertyKey] = value;
+            }
+        }
+    }
+
+    function handleUpdateEvent(e, propertyKey:string) {
+        updateStateValue(propertyKey, e.detail?.value);
+
+        api.updateElementStateValue(
+            selectedSceneID,
+            data.id,
+            propertyKey,
+            e.detail?.value
+        );
+    }
 </script>
 
 <div class="control-panel">
@@ -50,7 +80,11 @@
         <div class="content" bind:clientHeight={contentHeight} bind:this={content}>
             {#each components as c}
                 {#if c.type == "text-input"}
-                    <TextInput name={c.name} value={state[c.propertyKey] || ""}/>
+                    <TextInput
+                        name={c.name}
+                        value={state[c.propertyKey] || ""}
+                        on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
+                    />
                 {/if}
             {/each}
         </div>

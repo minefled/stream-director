@@ -16,9 +16,14 @@ export interface PacketData {
 
     /* == elements Packet */
     elements?:StreamElement[];
+
+    /* == update_element_state_value Packet == */
+    element_id?:string;
+    property_key?:string;
+    value?:any;
 }
 
 export interface Packet {
-    type:"get"|"get_response"|"is_live"|"select_scene";
+    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value";
     data?:PacketData;
 }

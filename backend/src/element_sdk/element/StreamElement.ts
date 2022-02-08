@@ -7,6 +7,7 @@ import { StreamElementData } from "./StreamElementData";
 import EventEmitter = require("events");
 import { StreamElementStoredData } from "./StreamElementStoredData";
 import { StreamElementFrontendData } from "./StreamElementFrontendData";
+import { ElementManager } from "../../managers/ElementManager";
 
 export class StreamElement {
 
@@ -22,11 +23,12 @@ export class StreamElement {
 
     constructor(
         data:StreamElementData,
-        selectedSceneId:string,
+        public __elementManager:ElementManager,
+        selectedSceneID:string,
         public __config:StreamElementConfig
     ) {
         this.__loadFromData(data);
-        this.__selectedScene = selectedSceneId;
+        this.__selectedScene = selectedSceneID;
     }
 
     __init() {
@@ -143,7 +145,25 @@ export class StreamElement {
             }
         }
 
-        console.log(this.__scenes);
+        this.__elementManager.service.server.broadcast({
+            type: "update_element_state_value",
+            data: {
+                element_id: this.__id,
+                scene_id: this.__selectedScene,
+                property_key: propertyKey,
+                value: this[propertyKey]
+            }
+        });
+    }
+
+    __updateSceneStateValue(sceneID:string, propertyKey:string, value:any) {
+        for(let i=0; i<this.__scenes.length; i++) {
+            if(this.__scenes[i].id == sceneID) {
+                this.__scenes[i].state[propertyKey] = value;
+            }
+        }
+
+        this.__loadSceneState(this.__selectedScene);
     }
 
 }

@@ -53,7 +53,7 @@ export class ElementManager {
             return null;
         }
 
-        let instance:StreamElement = new elementClass(data, this.service.scenes.selectedSceneID);
+        let instance:StreamElement = new elementClass(data, this, this.service.scenes.selectedSceneID);
 
         this.elements.push(instance);
 
@@ -115,6 +115,22 @@ export class ElementManager {
 
     exportFrontendData():StreamElementFrontendData[] {
         return this.elements.map(x => x.__exportFrontendData());
+    }
+
+    getElement(id:string) {
+        for(var e of this.elements) {
+            if(e.__id == id) return e;
+        }
+
+        return null;
+    }
+
+    updateElementStateValue(elementID:string, sceneID:string, propertyKey:string, value:any) {
+        for(var i=0;i<this.elements.length;i++) {
+            if(this.elements[i].__id == elementID) {
+                this.elements[i].__updateSceneStateValue(sceneID, propertyKey, value);
+            }
+        }
     }
 
 }

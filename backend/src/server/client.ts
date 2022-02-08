@@ -30,6 +30,11 @@ export class Client {
                 /* == A new scene has to be selected == */
                 this.handleSelectScenePacket(data);
                 break;
+
+            case "update_element_state_value":
+                /* == One value of the state of one scene of an element has been updated == */
+                this.handleUpdateElementStateValuePacket(data);
+                break;
         }
     }
 
@@ -71,6 +76,25 @@ export class Client {
             type: "select_scene",
             data: {
                 scene_id: sceneID
+            }
+        });
+    }
+
+    private handleUpdateElementStateValuePacket(packet:Packet) {
+        if(!packet.data?.scene_id) return;
+        if(!packet.data?.element_id) return;
+        if(!packet.data?.property_key) return;
+        if(!packet.data?.value) return;
+
+        this.server.service.elements.updateElementStateValue(packet.data?.element_id, packet.data?.scene_id, packet.data?.property_key, packet.data?.value);
+
+        this.server.broadcast({
+            type: "update_element_state_value",
+            data: {
+                scene_id: packet.data?.scene_id,
+                element_id: packet.data?.element_id,
+                property_key: packet.data?.property_key,
+                value: packet.data?.value
             }
         });
     }

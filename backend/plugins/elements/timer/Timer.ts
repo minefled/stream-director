@@ -1,6 +1,7 @@
 import { StreamElement } from "../../../src/element_sdk/element/StreamElement";
 import { StreamElementData } from "../../../src/element_sdk/element/StreamElementData";
 import { ui } from "../../../src/element_sdk/ui/ui";
+import { ElementManager } from "../../../src/managers/ElementManager";
 
 export class Timer extends StreamElement {
 
@@ -8,8 +9,8 @@ export class Timer extends StreamElement {
 
     @ui.TextInput("Message") text:string = "POGGERS";
 
-    constructor(data:StreamElementData, selectedSceneID:string) {
-        super(data, selectedSceneID, {
+    constructor(data:StreamElementData, elementManager:ElementManager, selectedSceneID:string) {
+        super(data, elementManager, selectedSceneID, {
             name: "Countdown Timer"
         });
         this.__init();

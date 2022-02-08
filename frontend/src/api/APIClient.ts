@@ -62,6 +62,10 @@ export default class APIClient {
             case "select_scene":
                 this.handleSelectScenePacket(data);
                 break;
+
+            case "update_element_state_value":
+                this.handleUpdateElementStateValue(data);
+                break;
         }
     }
 
@@ -100,6 +104,23 @@ export default class APIClient {
         });
     }
 
+    private handleUpdateElementStateValue(packet:Packet) {
+        if(!packet.data?.scene_id) return;
+        if(!packet.data?.element_id) return;
+        if(!packet.data?.property_key) return;
+        if(!packet.data?.value) return;
+
+        this.events.dispatch({
+            type: "update_element_state_value",
+            data: {
+                scene_id: packet.data?.scene_id,
+                element_id: packet.data?.element_id,
+                property_key: packet.data?.property_key,
+                value: packet.data?.value
+            }
+        });
+    }
+
     /* === Functions for external use === */
 
     async getScenes():Promise<SceneData> {
@@ -134,6 +155,18 @@ export default class APIClient {
                     resolve(this.cache.elements);
                 }
             )
+        });
+    }
+
+    updateElementStateValue(sceneID:string, elementID:string, propertyKey:string, value:any) {
+        this.sendData({
+            type: "update_element_state_value",
+            data: {
+                scene_id: sceneID,
+                element_id: elementID,
+                property_key: propertyKey,
+                value
+            }
         });
     }
 
