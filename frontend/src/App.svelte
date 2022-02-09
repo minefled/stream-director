@@ -17,7 +17,7 @@
 </script>
 
 <div class="app">
-	<Header />
+	<Header api={api} />
 
 	<div class="content">
 		<Scenes api={api} bind:selectedSceneID={selectedSceneID} />

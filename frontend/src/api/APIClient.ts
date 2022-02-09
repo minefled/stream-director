@@ -39,6 +39,10 @@ export default class APIClient {
         this.ws.onclose = () => {
             _this.isConnected = false;
 
+            this.events.dispatch({
+                type: "disconnect"
+            });
+
             setTimeout(() => {
                 _this.connect();
             }, 1000);
