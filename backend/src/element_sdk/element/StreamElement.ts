@@ -8,16 +8,20 @@ import EventEmitter = require("events");
 import { StreamElementStoredData } from "./StreamElementStoredData";
 import { StreamElementFrontendData } from "./StreamElementFrontendData";
 import { ElementManager } from "../../managers/ElementManager";
+import { SharedState } from "./SharedStateInterface";
 
 export class StreamElement {
 
     [key: string]: any;
 
-    __id:string                         = "";
-    __classID:string                    = "";
-    __uiComponents:ComponentInterface[] = [];
-    __scenes:SceneState[]               = [];
-    __selectedScene:string              = "781c69a2-7ed7-43bf-b395-1554aa3eb46e";
+    __id:string                             = "";
+    __classID:string                        = "";
+
+    __uiComponents:ComponentInterface[]     = [];
+    __sharedStateVariables:SharedState[]    = [];
+
+    __scenes:SceneState[]                   = [];
+    __selectedScene:string                  = "";
 
     __events:EventEmitter;
 
@@ -32,7 +36,8 @@ export class StreamElement {
     }
 
     __init() {
-        this.__uiComponents = Object.getPrototypeOf(this).__uiComponents;
+        this.__uiComponents         = Object.getPrototypeOf(this).__uiComponents || [];
+        this.__sharedStateVariables = Object.getPrototypeOf(this).__sharedStateVariables || [];
         this.__loadSceneState(this.__selectedScene);
 
         let _this = this;
@@ -76,6 +81,10 @@ export class StreamElement {
 
         for(var c of this.__uiComponents) {
             result.push(c.propertyKey);
+        }
+
+        for(var s of this.__sharedStateVariables) {
+            result.push(s.propertyKey);
         }
 
         return result;
