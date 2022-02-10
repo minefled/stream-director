@@ -11,7 +11,7 @@
 	export let api:APIClient;
 
 	let selectedSceneID:string = "";
-	let selectedPage:string = "login";
+	let selectedPage:string = "app";
 
 	onMount(() => {
 		console.log(api);

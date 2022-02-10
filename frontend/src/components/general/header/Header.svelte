@@ -57,9 +57,7 @@
 
 <div class="header">
     <div class="time-section {isConnected ? "":"not-connected"}">
-        <div class="loader-container {isConnected?"":"visible"}"><div class="loader" /></div>
         {timeString}
-        <div class="spacer" />
     </div>
 
     <div class="stream-info-section">
@@ -103,48 +101,6 @@
         &.not-connected {
             color: #ed3752;
             text-shadow: 0px 0px 20px #ed375288;
-        }
-
-        .loader-container {
-            height: 1.3em;
-            width: 1.3em;
-
-            margin-right: 0.7em;
-
-            opacity: 0%;
-            transition: 0.5s;
-
-            &.visible {
-                opacity: 100%;
-            }
-
-            .loader {
-                width: 100%;
-                height: 100%;
-
-                border-radius: 50%;
-
-                display: inline-block;
-                box-sizing: border-box;
-
-                border: 5px solid #00000000;
-                border-bottom-color: #ed3752;
-
-                animation: loader-spin 1s linear infinite;
-            }
-
-            @keyframes loader-spin {
-                0% {
-                    transform: rotate(0deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
-        }
-
-        .spacer {
-            width: 2em;
         }
     }
 
