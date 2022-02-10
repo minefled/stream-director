@@ -6,10 +6,12 @@
 	import Header from "./components/general/header/Header.svelte";
 	import Scenes from "./components/general/scenes/Scenes.svelte";
 	import StreamElementList from "./components/general/streamelements/StreamElementList.svelte";
+	import Login from "./login/Login.svelte";
 
 	export let api:APIClient;
 
 	let selectedSceneID:string = "";
+	let selectedPage:string = "login";
 
 	onMount(() => {
 		console.log(api);
@@ -17,12 +19,16 @@
 </script>
 
 <div class="app">
-	<Header api={api} />
+	{#if selectedPage == "app"}
+		<Header api={api} />
 
-	<div class="content">
-		<Scenes api={api} bind:selectedSceneID={selectedSceneID} />
-		<StreamElementList api={api} selectedSceneID={selectedSceneID}/>
-	</div>
+		<div class="content">
+			<Scenes api={api} bind:selectedSceneID={selectedSceneID} />
+			<StreamElementList api={api} selectedSceneID={selectedSceneID}/>
+		</div>
+	{:else if selectedPage == "login"}
+		<Login />
+	{/if}
 </div>
 
 <style>
