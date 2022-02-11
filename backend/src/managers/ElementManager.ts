@@ -62,7 +62,7 @@ export class ElementManager {
 
     selectScene(sceneID:string) {
         for(var e of this.elements) {
-            e.__selectedScene = sceneID;
+            e.__selectScene(sceneID);
         }
     } 
 
