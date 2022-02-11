@@ -5,6 +5,7 @@
     import type { StreamElement } from "../../api/types/StreamElement";
     import type { Component } from "../../api/types/UIComponent";
 import Button from "./components/Button.svelte";
+import NumberSlider from "./components/NumberSlider.svelte";
 
     import TextInput from "./components/TextInput.svelte";
 
@@ -94,6 +95,14 @@ import Button from "./components/Button.svelte";
                     <Button
                         name={c.name}
                         on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
+                    />
+                {:else if c.type == "number-slider"}
+                    <NumberSlider
+                        name={c.name}
+                        value={state[c.propertyKey] || 0}
+                        options={c.options || {}}
+
+                        on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
                     />
                 {/if}
             {/each}

@@ -8,8 +8,9 @@ export class Timer extends StreamElement {
 
     __classID = "countdown-timer";
 
-    @ui.TextInput("Message")    text:string = "POGGERS";
-    @state.SharedState()        endsAt:number = 0;
+    @ui.NumberSlider("Duration", { min: 0, max: 900, step: 30}) duration:number = 0;
+    @ui.TextInput("Message")                                    text:string = "POGGERS";
+    @state.SharedState()                                        endsAt:number = 0;
 
     constructor(data:StreamElementData, elementManager:ElementManager, selectedSceneID:string) {
         /* == Initialization stuff == */
