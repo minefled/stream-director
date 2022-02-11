@@ -4,6 +4,7 @@
     import type APIClient from "../../api/APIClient";
     import type { StreamElement } from "../../api/types/StreamElement";
     import type { Component } from "../../api/types/UIComponent";
+import Button from "./components/Button.svelte";
 
     import TextInput from "./components/TextInput.svelte";
 
@@ -67,6 +68,10 @@
             e.detail?.value
         );
     }
+
+    function handleButtonClickEvent(e, propertyKey:string) {
+        api.runAction(data.id, propertyKey);
+    }
 </script>
 
 <div class="control-panel">
@@ -84,6 +89,11 @@
                         name={c.name}
                         value={state[c.propertyKey] || ""}
                         on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
+                    />
+                {:else if c.type == "button"}
+                    <Button
+                        name={c.name}
+                        on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
                     />
                 {/if}
             {/each}
@@ -172,7 +182,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
     }
 </style>

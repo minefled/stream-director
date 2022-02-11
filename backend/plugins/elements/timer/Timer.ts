@@ -20,6 +20,11 @@ export class Timer extends StreamElement {
 
         console.log("Timer constructor >", this.__getUIData());
     }
+
+    @ui.Button("Start")
+    start() {
+        console.log(this.text);
+    }
     
 }
 

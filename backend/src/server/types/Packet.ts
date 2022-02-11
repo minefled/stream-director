@@ -24,6 +24,6 @@ export interface PacketData {
 }
 
 export interface Packet {
-    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value";
+    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value"|"run_action";
     data?:PacketData;
 }

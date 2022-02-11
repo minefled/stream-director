@@ -13,6 +13,15 @@ export function TextInput(name:string, options={}) {
         let value:string;
         let initialSet = true;
 
+        if(!target.hasOwnProperty("__uiComponents")) target.__uiComponents = [];
+        target.__uiComponents.push({
+            type: "text-input",
+                        
+            name,
+            propertyKey,
+            options
+        });
+
         Object.defineProperty(target, propertyKey, {
             get: () => { return value; },
             set: (v:string) => {
@@ -20,15 +29,6 @@ export function TextInput(name:string, options={}) {
 
                 if(initialSet) {
                     initialSet = false;
-
-                    if(!target.hasOwnProperty("__uiComponents")) target.__uiComponents = [];
-                    target.__uiComponents.push({
-                        type: "text-input",
-                        
-                        name,
-                        propertyKey,
-                        options
-                    });
 
                     if(typeof target.__events !== "object") target.__events = new EventEmitter();
                 }

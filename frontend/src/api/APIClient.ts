@@ -174,4 +174,14 @@ export default class APIClient {
         });
     }
 
+    runAction(elementID:string, propertyKey:string) {
+        this.sendData({
+            type: "run_action",
+            data: {
+                element_id: elementID,
+                property_key: propertyKey
+            }
+        });
+    }
+
 }

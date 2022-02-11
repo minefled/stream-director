@@ -35,6 +35,11 @@ export class Client {
                 /* == One value of the state of one scene of an element has been updated == */
                 this.handleUpdateElementStateValuePacket(data);
                 break;
+
+            case "run_action":
+                /* == A button has been pressed == */
+                this.handleRunActionPacket(data);
+                break;
         }
     }
 
@@ -97,6 +102,13 @@ export class Client {
                 value: packet.data?.value
             }
         });
+    }
+
+    private handleRunActionPacket(packet:Packet) {
+        if(!packet.data?.element_id) return;
+        if(!packet.data?.property_key) return;
+
+        this.server.service.elements.runElementAction(packet.data.element_id, packet.data.property_key);
     }
 
 }

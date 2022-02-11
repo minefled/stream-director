@@ -175,4 +175,10 @@ export class StreamElement {
         this.__loadSceneState(this.__selectedScene);
     }
 
+    __runAction(propertyKey:string) {
+        if(typeof this[propertyKey] !== "function") return;
+
+        this[propertyKey]();
+    }
+
 }
