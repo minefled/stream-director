@@ -4,9 +4,11 @@
     import Typewriter from "typewriter-effect/dist/core";
 
     import type APIClient from "../../../api/APIClient";
+    import type { Scene } from "../../../api/types/Scene";
 
     /* == External Variables == */
     export let api:APIClient;
+    export let selectedSceneID:string;
 
     /* == Internal Variables == */
     let isLive:boolean = false;
@@ -17,6 +19,9 @@
     let liveInfoTextTypewriter:Typewriter;
 
     let oldIsLive:boolean = null;
+
+    let allScenes:Scene[] = [];
+    let selectedSceneName:string = "";
 
     /* == Svelte Functions == */
     onMount(() => {
@@ -34,13 +39,18 @@
 
         updateIsLiveText();
 
-        api.events.createEventListener(e => e.type == "connect", () => {isConnected = true;});
+        api.events.createEventListener(e => e.type == "connect", async () => {
+            isConnected = true;
+
+            allScenes = (await api.getScenes()).scenes;
+        });
         api.events.createEventListener(e => e.type == "disconnect", () => {isConnected = false;});
     });
 
     afterUpdate(() => {
         updateIsLiveText();
-    })
+        updateSelectedSceneName();
+    });
 
     /* == Internal Functions == */
     function updateIsLiveText() {
@@ -53,11 +63,19 @@
             .start();
             
     }
+
+    function updateSelectedSceneName() {
+        for(var s of allScenes) if(s.id == selectedSceneID) selectedSceneName = s.name;
+    }
 </script>
 
 <div class="header">
     <div class="time-section {isConnected ? "":"not-connected"}">
         {timeString}
+    </div>
+
+    <div class="scene-section">
+        <b class="selected-scene-name">{selectedSceneName}</b>
     </div>
 
     <div class="stream-info-section">
@@ -102,6 +120,15 @@
             color: #ed3752;
             text-shadow: 0px 0px 20px #ed375288;
         }
+    }
+
+    .scene-section {
+        font-family: "Montserrat", Arial;
+        font-weight: 400;
+        font-size: 18px;
+        color: #ffffff;
+
+        margin-left: 1.3em;
     }
 
     .stream-info-section {

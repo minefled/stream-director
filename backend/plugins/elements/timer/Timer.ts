@@ -24,7 +24,7 @@ export class Timer extends StreamElement {
 
     @ui.Button("Start")
     start() {
-        console.log(this.text);
+        this.endsAt = new Date().getTime() + this.duration*1000;
     }
     
 }

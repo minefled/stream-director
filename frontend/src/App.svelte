@@ -20,7 +20,7 @@
 
 <div class="app">
 	{#if selectedPage == "app"}
-		<Header api={api} />
+		<Header api={api} selectedSceneID={selectedSceneID}/>
 
 		<div class="content">
 			<Scenes api={api} bind:selectedSceneID={selectedSceneID} />
