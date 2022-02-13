@@ -1,9 +1,10 @@
 import clc from "cli-color";
-import express from "express";
+import express, { Request, Response } from "express";
 import { createServer, Server as HTTPServer } from "http";
 
 import { WebSocket } from "./websocketServer";
 import { Service } from "../service";
+import { join } from "path";
 
 export class Server {
 
@@ -26,11 +27,30 @@ export class Server {
     }
 
     private setupRoutes() {
+        console.log(__dirname);
+
+        this.app.get("/elements/:plugin_id/*", (req, res) => {this.handleGetElement(req, res);});
+        this.app.use("/sdk/", express.static(join(__dirname, "../../../../sdk/js/dist/bundle")));
+
         this.setupGateway();
     }
 
     private setupGateway() {
         this.websocket = new WebSocket(this.service, this);
+    }
+
+    private handleGetElement(req:Request, res:Response) {
+        var pluginID = req.params.plugin_id;
+        var path     = req.params[0] ? req.params[0] : "index.html";
+
+        var fullPath:string;
+        if(path.endsWith(".js")) {
+            fullPath = join(__dirname, `../../plugins/elements/${pluginID}/web/${path}`);
+        } else {
+            fullPath = join(__dirname, `../../../plugins/elements/${pluginID}/web/${path}`);
+        }
+
+        res.sendFile(fullPath);
     }
 
 }
