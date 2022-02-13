@@ -1,5 +1,5 @@
 import { WebSocket as WebSocketClient} from "ws";
-import { WebSocket } from "./server";
+import { WebSocket } from "./websocketServer";
 import { Packet } from "./types/Packet";
 
 export class Client {

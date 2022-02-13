@@ -1,54 +1,36 @@
-/* == Server related == */
-import clc = require("cli-color");
-import { WebSocketServer } from "ws";
+import clc from "cli-color";
+import express from "express";
+import { createServer, Server as HTTPServer } from "http";
+
+import { WebSocket } from "./websocketServer";
 import { Service } from "../service";
 
-import { Client } from "./client";
-import { Packet } from "./types/Packet";
+export class Server {
 
-/**
- * Represents the websocket server that all clients (app / overlay) connect to
- */
-export class WebSocket {
-
-    private server:WebSocketServer;
-    private clients:Client[] = [];
+    server:HTTPServer;
+    app:express.Application
+    websocket:WebSocket;
 
     constructor(
-        public service:Service
+        public service:Service,
+        public port:number = 8090
     ) {
-        this.startServer();
-    }
+        this.app = express();
+        this.server = createServer(this.app);
 
-    /**
-     * Starts the actual websocket server
-     */
-    private startServer() {
-        this.server = new WebSocketServer({
-            port: 40923
-        }, () => {
-            console.log(clc.green("Server is running!"));
-        });
+        this.setupRoutes();
 
-        let _this = this;
-
-        this.server.on("connection", (socket) => {
-            _this.clients.push(new Client(socket, _this));
-
-            socket.on("close", () => {
-                _this.clients = _this.clients.filter(x => x.socket!=socket);
-            });
+        this.server.listen(port, () => {
+            clc.green(`Server is listening on port ${port}`);
         });
     }
 
-    private onMessage(message:string) {
-        let data = JSON.parse(message);
+    private setupRoutes() {
+        this.setupGateway();
     }
 
-    public broadcast(data:Packet) {
-        for(var c of this.clients) {
-            c.send(data);
-        }
+    private setupGateway() {
+        this.websocket = new WebSocket(this.service, this);
     }
 
 }

@@ -154,7 +154,7 @@ export class StreamElement {
             }
         }
 
-        this.__elementManager.service.server.broadcast({
+        this.__elementManager.service.server.websocket.broadcast({
             type: "update_element_state_value",
             data: {
                 element_id: this.__id,

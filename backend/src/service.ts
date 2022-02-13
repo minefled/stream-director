@@ -2,16 +2,16 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { ElementManager } from "./managers/ElementManager";
 import { SceneManager } from "./managers/SceneManager";
-import { WebSocket } from "./server/server";
+import { Server } from "./server/server";
 
 export class Service {
 
-    server:WebSocket;
+    server:Server;
     elements:ElementManager;
     scenes:SceneManager;
 
     constructor() {
-        this.server = new WebSocket(this);
+        this.server = new Server(this);
 
         let rawInitialData = this.loadStoredData();
 
