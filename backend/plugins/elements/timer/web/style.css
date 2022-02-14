@@ -26,13 +26,17 @@ html {
     gap: 6px;
 
     padding-left: 6px;
-}
 
-b {
     font-family: "Montserrat", Arial;
     font-size: 16px;
     font-weight: 800;
     color: #ffffff;
+}
+
+b.time {
+    width: 7ex;
+
+    text-align: center;
 
     padding-left: 6px;
     padding-right: 6px;
@@ -40,9 +44,17 @@ b {
     padding-bottom: 6px;
 }
 
-b.message {
+div.message {
     background-color: #35373d;
 
-    padding-left: 12px;
-    padding-right: 12px;
+    overflow: hidden;
+
+    padding-top: 6px;
+    padding-bottom: 6px;
+
+    transition: 0.8s;
+}
+
+b.message-content {
+    white-space: nowrap;
 }

@@ -1,7 +1,9 @@
 import APIClient from "./api/APIClient";
+import StreamDirectorElement from "./sdk/StreamDirectorElement";
 
 const exports = {
-    APIClient
+    APIClient,
+    StreamDirectorElement
 };
 
 export default exports;

@@ -89,7 +89,7 @@ export class Client {
         if(!packet.data?.scene_id) return;
         if(!packet.data?.element_id) return;
         if(!packet.data?.property_key) return;
-        if(!packet.data?.value) return;
+        if(!packet.data?.value == undefined) return;
 
         this.server.service.elements.updateElementStateValue(packet.data?.element_id, packet.data?.scene_id, packet.data?.property_key, packet.data?.value);
 
