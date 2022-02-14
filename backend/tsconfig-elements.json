@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+
+        "strict": true,
+        "strictPropertyInitialization": false,
+        "esModuleInterop": true,
+        "noImplicitAny": false
+    },
+
+    "include": ["plugins/elements/**/web/*"]
+}

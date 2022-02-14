@@ -11,5 +11,7 @@
         "esModuleInterop": true,
 
         "experimentalDecorators": true
-    }
+    },
+
+    "exclude": ["plugins/elements/**/web/*", "dist"]
 }

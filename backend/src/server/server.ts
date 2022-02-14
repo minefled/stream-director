@@ -30,7 +30,7 @@ export class Server {
         console.log(__dirname);
 
         this.app.get("/elements/:plugin_id/*", (req, res) => {this.handleGetElement(req, res);});
-        this.app.use("/sdk/", express.static(join(__dirname, "../../../../sdk/js/dist/bundle")));
+        this.app.use("/sdk/", express.static(join(__dirname, "../../../../sdk/js/dist/")));
 
         this.setupGateway();
     }
@@ -43,13 +43,7 @@ export class Server {
         var pluginID = req.params.plugin_id;
         var path     = req.params[0] ? req.params[0] : "index.html";
 
-        var fullPath:string;
-        if(path.endsWith(".js")) {
-            fullPath = join(__dirname, `../../plugins/elements/${pluginID}/web/${path}`);
-        } else {
-            fullPath = join(__dirname, `../../../plugins/elements/${pluginID}/web/${path}`);
-        }
-
+        var fullPath:string = join(__dirname, `../../../plugins/elements/${pluginID}/web/${path}`);
         res.sendFile(fullPath);
     }
 
