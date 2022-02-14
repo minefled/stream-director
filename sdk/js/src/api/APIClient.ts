@@ -112,7 +112,7 @@ export default class APIClient {
         if(!packet.data?.scene_id) return;
         if(!packet.data?.element_id) return;
         if(!packet.data?.property_key) return;
-        if(!packet.data?.value) return;
+        if(packet.data?.value == undefined) return;
 
         this.events.dispatch({
             type: "update_element_state_value",

@@ -10,6 +10,7 @@ let message:string = "";
 let endsAt:number = 0;
 
 //// Elements ////
+let timer:HTMLElement|null;
 let timerElement:HTMLElement|null;
 let messageElement:HTMLElement|null;
 let messageContainerElement:HTMLElement|null;
@@ -18,6 +19,7 @@ let messageTypewriter:any;
 
 window.addEventListener("load", () => {
     //// Get HTML Element ////
+    timer = document.getElementById("timer-element");
     timerElement = document.getElementById("time-display");
     messageElement = document.getElementById("message");
     messageContainerElement = document.getElementById("message-container");
@@ -33,8 +35,6 @@ window.addEventListener("load", () => {
         e => {
             setMessage(element.state.text);
             endsAt = element.state.endsAt;
-
-            console.log(endsAt);
         }
     )
 });
@@ -50,6 +50,10 @@ setInterval(() => {
     if(timeLeft < 0) {
         minutes = 0;
         seconds = 0;
+
+        timer.style.opacity = "0%";
+    } else {
+        timer.style.opacity = "100%";
     }
 
     timerElement.innerText = `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
@@ -61,11 +65,20 @@ function setMessage(newMessage:string) {
 
     message = newMessage;
 
+    if(message == "")  {
+        messageContainerElement.style.opacity = "0%";
+        messageContainerElement.style.padding = "6px 0px";
+    }
+    else {
+        messageContainerElement.style.opacity = "100%";
+        messageContainerElement.style.padding = "6px 12px";
+    }
+
     messageTypewriter
         .deleteAll()
         .typeString(message)
         .start();
-    messageContainerElement.style.padding = "6px 12px 6px 12px";
+    //messageContainerElement.style.padding = "6px 12px 6px 12px";
 
 }
 
