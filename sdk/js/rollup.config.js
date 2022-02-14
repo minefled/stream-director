@@ -13,14 +13,14 @@ export default [
         input: "src/index.ts",
         output: [
             {
-                file: "dist/bundle/stream-director-sdk.js",
+                file: "dist/stream-director-sdk.js",
                 format: "iife",
                 name: "streamDirector",
                 banner     
             },
             // Minified
             {
-                file: "dist/bundle/stream-director-sdk.min.js",
+                file: "dist/stream-director-sdk.min.js",
                 format: "iife",
                 name: "streamDirector",
                 banner,

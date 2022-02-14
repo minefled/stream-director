@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "ES6",
 
-        "outDir": "./dist",
+        "outDir": "./ts-dist",
         "rootDir": "src",
 
         "strict": true,
