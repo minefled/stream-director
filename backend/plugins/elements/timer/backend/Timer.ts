@@ -25,7 +25,7 @@ export class Timer extends StreamElement {
 
     @ui.Button("Start")
     start(data:ActionExecuteData) {
-        this.endsAt = new Date().getTime() + this.duration*1000;
+        this._set(data.sceneID, "endsAt", new Date().getTime() + this._get(data.sceneID, "duration")*1000);
     }
     
 }

@@ -173,7 +173,7 @@ export class StreamElement {
             }
         }
 
-        this.__loadSceneState(this.__selectedScene);
+        if(sceneID == this.__selectedScene) this[propertyKey] = value;
     }
 
     __runAction(sceneID:string, propertyKey:string) {
@@ -182,6 +182,16 @@ export class StreamElement {
         this[propertyKey]({
             sceneID
         } as ActionExecuteData);
+    }
+
+    _set(sceneID:string, propertyKey:string, value:any) {
+        this.__updateSceneStateValue(sceneID, propertyKey, value);
+    }
+
+    _get(sceneID:string, propertyKey:string):any {
+        var sceneState = this.__getSceneState(sceneID);
+
+        return sceneState?.state[propertyKey];
     }
 
 }
