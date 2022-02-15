@@ -5,10 +5,10 @@ import EventEmitter = require("events");
 
 import { StreamElement } from "../element_sdk/element/StreamElement";
 import { ElementClass } from "../types/ElementClass";
-import type { StreamElementData } from "../element_sdk/element/StreamElementData";
+import type { StreamElementData } from "../element_sdk/element/types/StreamElementData";
 import { Service } from "../service";
-import { StreamElementStoredData } from "../element_sdk/element/StreamElementStoredData";
-import { StreamElementFrontendData } from "../element_sdk/element/StreamElementFrontendData";
+import { StreamElementStoredData } from "../element_sdk/element/types/StreamElementStoredData";
+import { StreamElementFrontendData } from "../element_sdk/element/types/StreamElementFrontendData";
 
 export class ElementManager {
 

@@ -1,4 +1,4 @@
-import { StreamElementFrontendData } from "../../element_sdk/element/StreamElementFrontendData";
+import { StreamElementFrontendData } from "../../element_sdk/element/types/StreamElementFrontendData";
 import { SceneData } from "../../scenes/SceneData";
 
 export interface PacketData {

@@ -1,14 +1,14 @@
 /* == Types == */
-import type { StreamElementConfig } from "./StreamElementConfig";
-import type { ComponentInterface } from "./ComponentInterface";
-import type { SceneState } from "./SceneState";
-import type { StreamElementUiData } from "./StreamElementUiData";
-import { StreamElementData } from "./StreamElementData";
+import type { StreamElementConfig } from "./types/StreamElementConfig";
+import type { ComponentInterface } from "./types/ComponentInterface";
+import type { SceneState } from "./types/SceneState";
+import type { StreamElementUiData } from "./types/StreamElementUiData";
+import { StreamElementData } from "./types/StreamElementData";
 import EventEmitter = require("events");
-import { StreamElementStoredData } from "./StreamElementStoredData";
-import { StreamElementFrontendData } from "./StreamElementFrontendData";
+import { StreamElementStoredData } from "./types/StreamElementStoredData";
+import { StreamElementFrontendData } from "./types/StreamElementFrontendData";
 import { ElementManager } from "../../managers/ElementManager";
-import { SharedState } from "./SharedStateInterface";
+import { SharedState } from "./types/SharedStateInterface";
 
 export class StreamElement {
 
