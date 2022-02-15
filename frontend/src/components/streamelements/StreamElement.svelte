@@ -71,7 +71,7 @@ import NumberSlider from "./components/NumberSlider.svelte";
     }
 
     function handleButtonClickEvent(e, propertyKey:string) {
-        api.runAction(data.id, propertyKey);
+        api.runAction(data.id, selectedSceneID, propertyKey);
     }
 </script>
 

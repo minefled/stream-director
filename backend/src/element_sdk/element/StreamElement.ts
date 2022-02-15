@@ -9,6 +9,7 @@ import { StreamElementStoredData } from "./types/StreamElementStoredData";
 import { StreamElementFrontendData } from "./types/StreamElementFrontendData";
 import { ElementManager } from "../../managers/ElementManager";
 import { SharedState } from "./types/SharedStateInterface";
+import { ActionExecuteData } from "./types/ActionExecuteData";
 
 export class StreamElement {
 
@@ -175,10 +176,12 @@ export class StreamElement {
         this.__loadSceneState(this.__selectedScene);
     }
 
-    __runAction(propertyKey:string) {
+    __runAction(sceneID:string, propertyKey:string) {
         if(typeof this[propertyKey] !== "function") return;
 
-        this[propertyKey]();
+        this[propertyKey]({
+            sceneID
+        } as ActionExecuteData);
     }
 
 }

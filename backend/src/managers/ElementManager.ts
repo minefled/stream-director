@@ -133,11 +133,11 @@ export class ElementManager {
         }
     }
 
-    runElementAction(elementID:string, propertyKey:string) {
+    runElementAction(elementID:string, sceneID:string, propertyKey:string) {
         let e = this.getElement(elementID);
         if(!e) return;
 
-        e.__runAction(propertyKey);
+        e.__runAction(sceneID, propertyKey);
     }
 
 }

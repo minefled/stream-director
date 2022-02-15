@@ -174,11 +174,12 @@ export default class APIClient {
         });
     }
 
-    runAction(elementID:string, propertyKey:string) {
+    runAction(elementID:string, sceneID:string, propertyKey:string) {
         this.sendData({
             type: "run_action",
             data: {
                 element_id: elementID,
+                scene_id: sceneID,
                 property_key: propertyKey
             }
         });

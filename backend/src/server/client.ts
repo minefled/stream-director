@@ -107,8 +107,9 @@ export class Client {
     private handleRunActionPacket(packet:Packet) {
         if(!packet.data?.element_id) return;
         if(!packet.data?.property_key) return;
+        if(!packet.data?.scene_id) return;
 
-        this.server.service.elements.runElementAction(packet.data.element_id, packet.data.property_key);
+        this.server.service.elements.runElementAction(packet.data.element_id, packet.data.scene_id, packet.data.property_key);
     }
 
 }

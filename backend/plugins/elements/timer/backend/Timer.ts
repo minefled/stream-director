@@ -1,5 +1,6 @@
 import { StreamElement } from "../../../../src/element_sdk/element/StreamElement";
-import { StreamElementData } from "../../../../src/element_sdk/element/StreamElementData";
+import { ActionExecuteData } from "../../../../src/element_sdk/element/types/ActionExecuteData";
+import { StreamElementData } from "../../../../src/element_sdk/element/types/StreamElementData";
 import { state } from "../../../../src/element_sdk/state/state";
 import { ui } from "../../../../src/element_sdk/ui/ui";
 import { ElementManager } from "../../../../src/managers/ElementManager";
@@ -23,7 +24,7 @@ export class Timer extends StreamElement {
     }
 
     @ui.Button("Start")
-    start() {
+    start(data:ActionExecuteData) {
         this.endsAt = new Date().getTime() + this.duration*1000;
     }
     
