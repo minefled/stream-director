@@ -10,6 +10,7 @@ import { StreamElementFrontendData } from "./types/StreamElementFrontendData";
 import { ElementManager } from "../../managers/ElementManager";
 import { SharedState } from "./types/SharedStateInterface";
 import { ActionExecuteData } from "./types/ActionExecuteData";
+import { StreamElementInitializationData } from "./types/StreamElementInitializationData";
 
 export class StreamElement {
 
@@ -26,14 +27,18 @@ export class StreamElement {
 
     __events:EventEmitter;
 
+    __elementManager:ElementManager;
+
     constructor(
-        data:StreamElementData,
+        /*data:StreamElementData,
         public __elementManager:ElementManager,
-        selectedSceneID:string,
+        selectedSceneID:string,*/
+        initializationData:StreamElementInitializationData,
         public __config:StreamElementConfig
     ) {
-        this.__loadFromData(data);
-        this.__selectedScene = selectedSceneID;
+        this.__elementManager = initializationData.elementManager;
+        this.__loadFromData(initializationData.data);
+        this.__selectedScene = initializationData.selectedSceneID;
     }
 
     __init() {

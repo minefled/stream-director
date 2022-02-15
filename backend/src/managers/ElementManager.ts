@@ -9,6 +9,7 @@ import type { StreamElementData } from "../element_sdk/element/types/StreamEleme
 import { Service } from "../service";
 import { StreamElementStoredData } from "../element_sdk/element/types/StreamElementStoredData";
 import { StreamElementFrontendData } from "../element_sdk/element/types/StreamElementFrontendData";
+import { StreamElementInitializationData } from "../element_sdk/element/types/StreamElementInitializationData";
 
 export class ElementManager {
 
@@ -53,7 +54,11 @@ export class ElementManager {
             return null;
         }
 
-        let instance:StreamElement = new elementClass(data, this, this.service.scenes.selectedSceneID);
+        let instance:StreamElement = new elementClass({
+            data,
+            elementManager: this,
+            selectedSceneID: this.service.scenes.selectedSceneID
+        } as StreamElementInitializationData);
 
         this.elements.push(instance);
 

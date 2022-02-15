@@ -1,9 +1,8 @@
 import { StreamElement } from "../../../../src/element_sdk/element/StreamElement";
 import { ActionExecuteData } from "../../../../src/element_sdk/element/types/ActionExecuteData";
-import { StreamElementData } from "../../../../src/element_sdk/element/types/StreamElementData";
+import { StreamElementInitializationData } from "../../../../src/element_sdk/element/types/StreamElementInitializationData";
 import { state } from "../../../../src/element_sdk/state/state";
 import { ui } from "../../../../src/element_sdk/ui/ui";
-import { ElementManager } from "../../../../src/managers/ElementManager";
 
 export class Timer extends StreamElement {
 
@@ -13,9 +12,9 @@ export class Timer extends StreamElement {
     @ui.TextInput("Message")                                    text:string = "POGGERS";
     @state.SharedState()                                        endsAt:number = 0;
 
-    constructor(data:StreamElementData, elementManager:ElementManager, selectedSceneID:string) {
+    constructor(data:StreamElementInitializationData) {
         /* == Initialization stuff == */
-        super(data, elementManager, selectedSceneID, {
+        super(data, {
             name: "Countdown Timer"
         });
         this.__init();
@@ -25,7 +24,12 @@ export class Timer extends StreamElement {
 
     @ui.Button("Start")
     start(data:ActionExecuteData) {
-        this._set(data.sceneID, "endsAt", new Date().getTime() + this._get(data.sceneID, "duration")*1000);
+        //// Set the new endsAt timestamp ////
+        this._set(
+            data.sceneID,
+            "endsAt",
+            new Date().getTime() + this._get(data.sceneID, "duration")*1000
+        );
     }
     
 }
