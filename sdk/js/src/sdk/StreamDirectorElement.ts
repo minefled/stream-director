@@ -14,7 +14,7 @@ export default class StreamDirectorElement {
 
     events:EventHandler;
 
-    constructor(public id:string, api:APIClient|null=null) {
+    constructor(public id:string, api:APIClient|null=null, public forcedSceneID:string|null=null) {
         this.api = api ? api : new APIClient(this.getGatewayURL());
         this.events = new EventHandler();
 
@@ -40,6 +40,8 @@ export default class StreamDirectorElement {
             this.api.events.createEventListener(
                 e => e.type == "select_scene",
                 e => {
+                    if(this.forcedSceneID != null) return;
+
                     this.selectedSceneID = e.data?.scene_id || "";
                     this.__loadSceneState(this.selectedSceneID);
                 }
@@ -72,7 +74,7 @@ export default class StreamDirectorElement {
 
         // Get selected Scene ID
         let sceneData = await this.api.getScenes();
-        this.selectedSceneID = sceneData.selectedSceneID;
+        this.selectedSceneID = this.forcedSceneID != null ? this.forcedSceneID : sceneData.selectedSceneID;
 
         this.__loadSceneState(this.selectedSceneID);
     }
