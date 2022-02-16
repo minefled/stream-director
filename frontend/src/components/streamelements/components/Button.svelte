@@ -16,7 +16,7 @@
 
 <style lang="scss">
     .btn {
-        width: calc(100% - 30px);
+        width: calc(100%);
         height: 2em;
 
         display: flex;
