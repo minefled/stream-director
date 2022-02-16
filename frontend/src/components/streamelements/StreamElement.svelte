@@ -4,10 +4,12 @@
     import type APIClient from "../../api/APIClient";
     import type { StreamElement } from "../../api/types/StreamElement";
     import type { Component } from "../../api/types/UIComponent";
-import Button from "./components/Button.svelte";
-import NumberSlider from "./components/NumberSlider.svelte";
+    import type { UIGroup } from "../../api/types/UIGroup";
 
     import TextInput from "./components/TextInput.svelte";
+    import Button from "./components/Button.svelte";
+    import NumberSlider from "./components/NumberSlider.svelte";
+    import ButtonGroup from "./groups/ButtonGroup.svelte";
 
     let expanded:boolean = false;
     let contentHeight:number = 0;
@@ -17,11 +19,16 @@ import NumberSlider from "./components/NumberSlider.svelte";
     export let data:StreamElement;
     export let selectedSceneID:string = "";
 
+    let _components:Component[] = [];
+    let _groups:UIGroup[] = [];
+
     let components:Component[] = [];
+    let groups:any[] = [];
     let state:{ [key: string]: any; } = {};
 
     onMount(() => {
-        components = data.ui.components;
+        _components = data.ui.components;
+        _groups = data.ui.groups;
 
         api.events.createEventListener(
             e => e.type == "update_element_state_value",
@@ -42,12 +49,46 @@ import NumberSlider from "./components/NumberSlider.svelte";
     afterUpdate(() => {
         contentHeight = content.clientHeight;
 
+        //// Load selected scene state ////
         for(var s of data.state.scenes) {
             if(s.id == selectedSceneID) {
                 state = s.state;
             }
         }
+
+        //// Update components ////
+        components = [];
+        groups = [];
+
+        for(var g of _groups) {
+            groups.push({
+                type: g.type,
+                id: g.id,
+                propertyKeys: g.propertyKeys,
+                components: []
+            });
+        }
+
+        for(var c of _components) {
+            if(isInGroup(c.propertyKey)) {
+                for(var gr of groups) {
+                    if(gr.propertyKeys.includes(c.propertyKey)) {
+                        gr.components.push(c);
+                    }
+                }
+            } else {
+                components.push(c);
+            }
+        }
     });
+
+    function isInGroup(propertyKey:string):boolean {
+        for(var g of groups) {
+            if(g.propertyKeys.includes(propertyKey)) return true;
+        }
+
+        return false;
+    }
 
     function updateStateValue(propertyKey:string, value:any, sceneID:string = selectedSceneID) {
         for (let i = 0; i < data.state.scenes.length; i++) {
@@ -92,10 +133,12 @@ import NumberSlider from "./components/NumberSlider.svelte";
                         on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
                     />
                 {:else if c.type == "button"}
-                    <Button
-                        name={c.name}
-                        on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
-                    />
+                    <div class="button-container">
+                        <Button
+                            name={c.name}
+                            on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
+                        />
+                    </div>
                 {:else if c.type == "number-slider"}
                     <NumberSlider
                         name={c.name}
@@ -104,6 +147,21 @@ import NumberSlider from "./components/NumberSlider.svelte";
 
                         on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
                     />
+                {/if}
+            {/each}
+
+            {#each groups as g}
+                {#if g.type == "buttons"}
+                    <ButtonGroup numberOfButtons={g.components.length}>
+                        {#each g.components as c}
+                            {#if c.type == "button"}
+                            <Button
+                                name={c.name}
+                                on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
+                            />
+                            {/if}
+                        {/each}
+                    </ButtonGroup>
                 {/if}
             {/each}
         </div>
@@ -192,6 +250,10 @@ import NumberSlider from "./components/NumberSlider.svelte";
             flex-direction: column;
             align-items: center;
             gap: 10px;
+
+            .button-container {
+                width: calc(100% - 30px);
+            }
         }
     }
 </style>

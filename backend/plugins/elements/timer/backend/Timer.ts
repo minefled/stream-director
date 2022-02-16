@@ -36,24 +36,28 @@ export class Timer extends StreamElement {
     @ui.Button("1min")
     set1Minute(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 60);
+        this.start(data);
     }
 
     @ui.ButtonGroup("time-presets")
     @ui.Button("3min")
     set3Minutes(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 180);
+        this.start(data);
     }
 
     @ui.ButtonGroup("time-presets")
     @ui.Button("5min")
     set5Minutes(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 300);
+        this.start(data);
     }
 
     @ui.ButtonGroup("time-presets")
     @ui.Button("10min")
     set10Minutes(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 600);
+        this.start(data);
     }
     
 }
