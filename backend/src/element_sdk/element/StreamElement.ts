@@ -11,6 +11,7 @@ import { ElementManager } from "../../managers/ElementManager";
 import { SharedState } from "./types/SharedStateInterface";
 import { ActionExecuteData } from "./types/ActionExecuteData";
 import { StreamElementInitializationData } from "./types/StreamElementInitializationData";
+import { UIGroupInterface } from "./types/UIGroupInterface";
 
 export class StreamElement {
 
@@ -21,6 +22,8 @@ export class StreamElement {
 
     __uiComponents:ComponentInterface[]     = [];
     __sharedStateVariables:SharedState[]    = [];
+
+    __uiGroups:UIGroupInterface[]       = [];
 
     __scenes:SceneState[]                   = [];
     __selectedScene:string                  = "";
@@ -43,6 +46,7 @@ export class StreamElement {
 
     __init() {
         this.__uiComponents         = Object.getPrototypeOf(this).__uiComponents || [];
+        this.__uiGroups             = Object.getPrototypeOf(this).__uiGroups || [];
         this.__sharedStateVariables = Object.getPrototypeOf(this).__sharedStateVariables || [];
         this.__loadSceneState(this.__selectedScene);
 
@@ -149,7 +153,8 @@ export class StreamElement {
             panel: {
                 name: this.__config.name
             },
-            components: this.__uiComponents
+            components: this.__uiComponents,
+            groups: this.__uiGroups
         }
     }
 

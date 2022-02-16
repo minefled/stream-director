@@ -8,7 +8,7 @@ export class Timer extends StreamElement {
 
     __classID = "countdown-timer";
 
-    @ui.NumberSlider("Duration", { min: 0, max: 900, step: 30}) duration:number = 0;
+    @ui.NumberSlider("Duration", { min: 0, max: 900, step: 15}) duration:number = 0;
     @ui.TextInput("Message")                                    text:string = "POGGERS";
     @state.SharedState()                                        endsAt:number = 0;
 
@@ -30,6 +30,30 @@ export class Timer extends StreamElement {
             "endsAt",
             new Date().getTime() + this._get(data.sceneID, "duration")*1000
         );
+    }
+
+    @ui.ButtonGroup("time-presets")
+    @ui.Button("1min")
+    set1Minute(data:ActionExecuteData) {
+        this._set(data.sceneID, "duration", 60);
+    }
+
+    @ui.ButtonGroup("time-presets")
+    @ui.Button("3min")
+    set3Minutes(data:ActionExecuteData) {
+        this._set(data.sceneID, "duration", 180);
+    }
+
+    @ui.ButtonGroup("time-presets")
+    @ui.Button("5min")
+    set5Minutes(data:ActionExecuteData) {
+        this._set(data.sceneID, "duration", 300);
+    }
+
+    @ui.ButtonGroup("time-presets")
+    @ui.Button("10min")
+    set10Minutes(data:ActionExecuteData) {
+        this._set(data.sceneID, "duration", 600);
     }
     
 }

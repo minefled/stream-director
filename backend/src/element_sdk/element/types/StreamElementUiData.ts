@@ -1,4 +1,5 @@
 import type { ComponentInterface } from "./ComponentInterface";
+import { UIGroupInterface } from "./UIGroupInterface";
 
 interface UiPanelData {
     name:string;
@@ -7,4 +8,5 @@ interface UiPanelData {
 export interface StreamElementUiData {
     panel:UiPanelData;
     components:ComponentInterface[];
+    groups:UIGroupInterface[];
 }
