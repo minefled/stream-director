@@ -10,6 +10,7 @@
     import Button from "./components/Button.svelte";
     import NumberSlider from "./components/NumberSlider.svelte";
     import ButtonGroup from "./groups/ButtonGroup.svelte";
+import ComponentList from "./ComponentList.svelte";
 
     let expanded:boolean = false;
     let contentHeight:number = 0;
@@ -125,40 +126,23 @@
 
     <div class="details {expanded ? "expaned":""}" style="height: {expanded ? contentHeight:0}px">
         <div class="content" bind:clientHeight={contentHeight} bind:this={content}>
-            {#each components as c}
-                {#if c.type == "text-input"}
-                    <TextInput
-                        name={c.name}
-                        value={state[c.propertyKey] || ""}
-                        on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
-                    />
-                {:else if c.type == "button"}
-                    <div class="button-container">
-                        <Button
-                            name={c.name}
-                            on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
-                        />
-                    </div>
-                {:else if c.type == "number-slider"}
-                    <NumberSlider
-                        name={c.name}
-                        value={state[c.propertyKey] || 0}
-                        options={c.options || {}}
+            <ComponentList
+                components={components}
+                state={state}
 
-                        on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
-                    />
-                {/if}
-            {/each}
+                on:update={e => {handleUpdateEvent(e.detail?.e, e.detail?.propertyKey);}}
+                on:click={e => {handleButtonClickEvent(e.detail?.e, e.detail?.propertyKey);}}
+            />
 
             {#each groups as g}
                 {#if g.type == "buttons"}
                     <ButtonGroup numberOfButtons={g.components.length}>
                         {#each g.components as c}
                             {#if c.type == "button"}
-                            <Button
-                                name={c.name}
-                                on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
-                            />
+                                <Button
+                                    name={c.name}
+                                    on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
+                                />
                             {/if}
                         {/each}
                     </ButtonGroup>
