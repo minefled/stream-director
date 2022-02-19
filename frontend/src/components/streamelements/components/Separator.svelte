@@ -7,9 +7,9 @@
         width: calc(100% - 80px);
         height: 2px;
 
-        margin-top: 2px;
-        margin-bottom: 2px;
+        margin-top: 0.6em;
+        margin-bottom: 0.6em;
 
-        background-color: #232329;
+        background-color: #28282f;
     }
 </style>
