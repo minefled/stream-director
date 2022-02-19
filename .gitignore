@@ -4,4 +4,6 @@ package-lock.json
 .env
 dist
 
+backend/data/twitch-credentials.json
+
 frontend/public/build/

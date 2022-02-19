@@ -3,12 +3,15 @@ import { join } from "path";
 import { ElementManager } from "./managers/ElementManager";
 import { SceneManager } from "./managers/SceneManager";
 import { Server } from "./server/server";
+import { TwitchAPI } from "./twitch/TwitchAPI";
 
 export class Service {
 
     server:Server;
     elements:ElementManager;
     scenes:SceneManager;
+
+    twitch:TwitchAPI;
 
     constructor() {
         this.server = new Server(this);
@@ -17,6 +20,8 @@ export class Service {
 
         this.elements = new ElementManager(this);
         this.scenes = new SceneManager(this, rawInitialData["scenes"]);
+
+        this.twitch = new TwitchAPI();
 
         this.elements.events.on("element-plugins-loaded", () => {
             this.elements.loadFromStoredData(rawInitialData["elements"]);
