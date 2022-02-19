@@ -17,6 +17,7 @@
     "ws": "^8.4.2"
   },
   "scripts": {
-    "dev": "(tsc -w &) && (tsc -p tsconfig-elements.json -w &) && (nodemon dist/src/index.js --ignore data)"
+    "dev": "(tsc -w &) && (tsc -p tsconfig-elements.json -w &) && (nodemon dist/src/index.js --ignore data)",
+    "build": "tsc"
   }
 }
