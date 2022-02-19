@@ -4,7 +4,7 @@
 
 <style lang="scss">
     .separator {
-        width: calc(100% - 50px);
+        width: calc(100% - 80px);
         height: 2px;
 
         margin-top: 2px;

@@ -4,10 +4,12 @@
     import type { Component } from "../../api/types/UIComponent";
 
     //// Component Imports ////
-    import TextInput from "./components/TextInput.svelte";
-    import Button from "./components/Button.svelte";
-    import NumberSlider from "./components/NumberSlider.svelte";
+    import TextInput from "./components/inputs/TextInput.svelte";
+    import Button from "./components/inputs/Button.svelte";
+    import NumberSlider from "./components/inputs/NumberSlider.svelte";
+
     import Separator from "./components/Separator.svelte";
+import Headline from "./components/Headline.svelte";
 
     //// Public Variables ////
     export let components:Component[] = [];
@@ -65,6 +67,8 @@
 
     {:else if c.type == "separator"}
         <Separator />
+    {:else if c.type == "headline"}
+        <Headline name={c.name} />
     {/if}
 {/each}
 

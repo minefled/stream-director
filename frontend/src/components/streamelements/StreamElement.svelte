@@ -6,9 +6,9 @@
     import type { Component } from "../../api/types/UIComponent";
     import type { UIGroup } from "../../api/types/UIGroup";
 
-    import TextInput from "./components/TextInput.svelte";
-    import Button from "./components/Button.svelte";
-    import NumberSlider from "./components/NumberSlider.svelte";
+    import TextInput from "./components/inputs/TextInput.svelte";
+    import Button from "./components/inputs/Button.svelte";
+    import NumberSlider from "./components/inputs/NumberSlider.svelte";
     import ButtonGroup from "./groups/ButtonGroup.svelte";
 import ComponentList from "./ComponentList.svelte";
 

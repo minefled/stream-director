@@ -21,7 +21,7 @@ export class Timer extends StreamElement {
         this.__init(data);
 
         this._addComponent(ui.Separator({ position: 2 }));
-        this._addComponent(ui.Separator({ position: 4 }));
+        this._addComponent(ui.Headline("Test", { position: 4 }));
 
         //console.log("Timer constructor >", this.__getUIData());
     }
@@ -46,42 +46,42 @@ export class Timer extends StreamElement {
     } 
 
     @ui.ButtonGroup("time-presets")
-    @ui.Button("30sec")
+    @ui.Button("30 sec")
     set30Sec(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 30);
         this.start(data);
     }
 
     @ui.ButtonGroup("time-presets")
-    @ui.Button("1min")
+    @ui.Button("1 min")
     set1Minute(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 60);
         this.start(data);
     }
 
     @ui.ButtonGroup("time-presets")
-    @ui.Button("3min")
+    @ui.Button("3 min")
     set3Minutes(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 180);
         this.start(data);
     }
 
     @ui.ButtonGroup("time-presets")
-    @ui.Button("5min")
+    @ui.Button("5 min")
     set5Minutes(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 300);
         this.start(data);
     }
 
     @ui.ButtonGroup("time-presets")
-    @ui.Button("10min")
+    @ui.Button("10 min")
     set10Minutes(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 600);
         this.start(data);
     }
 
     @ui.ButtonGroup("time-presets")
-    @ui.Button("15Min")
+    @ui.Button("15 min")
     set15Min(data:ActionExecuteData) {
         this._set(data.sceneID, "duration", 900);
         this.start(data);

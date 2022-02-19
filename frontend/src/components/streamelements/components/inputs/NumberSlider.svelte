@@ -1,6 +1,6 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
-    import type { NumberSliderOptions } from "./options";
+    import type { NumberSliderOptions } from "../options";
 
     export let name:string;
     export let value:number = 0;

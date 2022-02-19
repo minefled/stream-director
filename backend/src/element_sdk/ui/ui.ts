@@ -1,10 +1,11 @@
-import { TextInput } from "./components/TextInput";
-import { Button } from "./components/Button";
-import { NumberSlider } from "./components/NumberSlider";
+import { TextInput } from "./components/inputs/TextInput";
+import { Button } from "./components/inputs/Button";
+import { NumberSlider } from "./components/inputs/NumberSlider";
 
 import { ButtonGroup } from "./modifiers/ButtonGroup";
 
 import { Separator } from "./components/Separator";
+import { Headline } from "./components/Headline";
 
 export const ui = {
     TextInput,
@@ -13,5 +14,6 @@ export const ui = {
 
     ButtonGroup,
 
-    Separator
+    Separator,
+    Headline
 };
