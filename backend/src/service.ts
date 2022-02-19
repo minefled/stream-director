@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { readFileSync, writeFileSync } from "fs";
 import { join } from "path";
 import { ElementManager } from "./managers/ElementManager";
 import { SceneManager } from "./managers/SceneManager";
@@ -20,7 +20,9 @@ export class Service {
 
         this.elements.events.on("element-plugins-loaded", () => {
             this.elements.loadFromStoredData(rawInitialData["elements"]);
-        })
+
+            this.storeData();
+        });
     }
 
     loadStoredData() {
@@ -28,6 +30,20 @@ export class Service {
         let raw = JSON.parse(readFileSync(path, "utf-8"));
 
         return raw;
+    }
+
+    exportStoredData() {
+        return {
+            scenes: this.scenes.exportData(),
+            elements: this.elements.exportStoredData()
+        };
+    }
+
+    storeData() {
+        let path = join(__dirname, "../../data/data.json");
+        let data = JSON.stringify(this.exportStoredData(), null, 4);
+
+        writeFileSync(path, data);
     }
 
 }

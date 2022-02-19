@@ -14,10 +14,10 @@ export class Timer extends StreamElement {
 
     constructor(data:StreamElementInitializationData) {
         /* == Initialization stuff == */
-        super(data, {
+        super({
             name: "Countdown Timer"
         });
-        this.__init();
+        this.__init(data);
 
         console.log("Timer constructor >", this.__getUIData());
     }

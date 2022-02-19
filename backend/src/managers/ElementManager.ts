@@ -118,6 +118,16 @@ export class ElementManager {
         }
     }
 
+    exportStoredData() {
+        let data:StreamElementStoredData[] = [];
+
+        for(var e of this.elements) {
+            data.push(e.__exportStoredData());
+        }
+
+        return data;
+    }
+
     exportFrontendData():StreamElementFrontendData[] {
         return this.elements.map(x => x.__exportFrontendData());
     }
@@ -143,6 +153,10 @@ export class ElementManager {
         if(!e) return;
 
         e.__runAction(sceneID, propertyKey);
+    }
+
+    onElementUpdate() {
+        this.service.storeData();
     }
 
 }

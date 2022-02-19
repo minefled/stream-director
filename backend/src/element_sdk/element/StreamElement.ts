@@ -33,28 +33,26 @@ export class StreamElement {
     __elementManager:ElementManager;
 
     constructor(
-        /*data:StreamElementData,
-        public __elementManager:ElementManager,
-        selectedSceneID:string,*/
-        initializationData:StreamElementInitializationData,
         public __config:StreamElementConfig
     ) {
-        this.__elementManager = initializationData.elementManager;
-        this.__loadFromData(initializationData.data);
-        this.__selectedScene = initializationData.selectedSceneID;
     }
 
-    __init() {
+    __init(initializationData:StreamElementInitializationData,) {
         this.__uiComponents         = Object.getPrototypeOf(this).__uiComponents || [];
         this.__uiGroups             = Object.getPrototypeOf(this).__uiGroups || [];
         this.__sharedStateVariables = Object.getPrototypeOf(this).__sharedStateVariables || [];
-        this.__loadSceneState(this.__selectedScene);
+
+        this.__elementManager = initializationData.elementManager;
+        this.__loadFromData(initializationData.data);
+        this.__selectedScene = initializationData.selectedSceneID;
 
         let _this = this;
 
         this.__events.on("update", (propertyKey:string) => {
             _this.__onUpdate(propertyKey);
         });
+
+        this.__loadSceneState(this.__selectedScene);
     }
 
     __loadFromData(data:StreamElementData) {
@@ -90,6 +88,8 @@ export class StreamElement {
         let result:string[] = [];
 
         for(var c of this.__uiComponents) {
+            if(c.type == "button") continue;
+
             result.push(c.propertyKey);
         }
 
@@ -123,7 +123,20 @@ export class StreamElement {
     }
 
     __loadSceneStates(scenes:SceneState[]) {
-        this.__scenes = scenes;
+        for(var s of scenes) {
+            let state:{[key:string]: any} = {};
+
+            for(var key of this.__getAllStateKeys()) {
+                state[key] = s.state[key] != undefined ? s.state[key] : this[key];
+            }
+
+            var scene:SceneState = {
+                id: s.id,
+                state: state
+            };
+
+            this.__scenes.push(scene);
+        }
     }
 
     __loadSceneState(id:string) {
@@ -174,6 +187,8 @@ export class StreamElement {
                 value: this[propertyKey]
             }
         });
+
+        this.__elementManager.onElementUpdate();
     }
 
     __updateSceneStateValue(sceneID:string, propertyKey:string, value:any) {
@@ -184,6 +199,8 @@ export class StreamElement {
         }
 
         if(sceneID == this.__selectedScene) this[propertyKey] = value;
+
+        this.__elementManager.onElementUpdate();
     }
 
     __runAction(sceneID:string, propertyKey:string) {
