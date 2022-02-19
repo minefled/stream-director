@@ -1,11 +1,33 @@
 import EventEmitter = require("events");
 
 export interface NumberSliderOptions {
+    /**
+     * The min value that can be set on the slider
+     */
     min:number;
+
+    /**
+     * The max value that can be set on the slider
+     */
     max:number;
+
+    /**
+     * How big the steps are between each value.
+     * 
+     * @example
+     *      3 -> 0, 3, 6, 9, 12, ...
+     */
     step?:number;
 
+    /**
+     * Indicates whether the value of the slider should be send after each change or only when the user is done changing it
+     */
     sendEach?:boolean;
+
+    /**
+     * Sets the position of the slider in the ui. The lower the value, the higher up it is
+     */
+     position?: number;
 }
 
 /**

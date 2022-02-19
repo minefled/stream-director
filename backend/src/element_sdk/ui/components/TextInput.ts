@@ -1,13 +1,19 @@
 /* == Types == */
 import EventEmitter = require("events");
-import type { StreamElement } from "../../element/StreamElement";
+
+export interface TextInputOptions {
+    /**
+     * Sets the position of the input in the ui. The lower the value, the higher up it is
+     */
+     position?: number;
+}
 
 /**
  * **Text Input**
  * 
  * Adds a text input to the control panel
  */
-export function TextInput(name:string, options={}) {
+export function TextInput(name:string, options:TextInputOptions={}) {
 
     return function(target: any, propertyKey: string) {
         let value:string;
