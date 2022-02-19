@@ -90,7 +90,7 @@ export class StreamElement {
         for(var c of this.__uiComponents) {
             if(c.type == "button") continue;
 
-            result.push(c.propertyKey);
+            result.push(c.propertyKey || "");
         }
 
         for(var s of this.__sharedStateVariables) {
@@ -219,6 +219,10 @@ export class StreamElement {
         var sceneState = this.__getSceneState(sceneID);
 
         return sceneState?.state[propertyKey];
+    }
+
+    _addComponent(component:ComponentInterface) {
+        this.__uiComponents.push(component);
     }
 
 }

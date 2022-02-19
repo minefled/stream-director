@@ -2,6 +2,7 @@ import { StreamElement } from "../../../../src/element_sdk/element/StreamElement
 import { ActionExecuteData } from "../../../../src/element_sdk/element/types/ActionExecuteData";
 import { StreamElementInitializationData } from "../../../../src/element_sdk/element/types/StreamElementInitializationData";
 import { state } from "../../../../src/element_sdk/state/state";
+import { Separator } from "../../../../src/element_sdk/ui/components/Separator";
 import { ui } from "../../../../src/element_sdk/ui/ui";
 
 export class Timer extends StreamElement {
@@ -19,7 +20,10 @@ export class Timer extends StreamElement {
         });
         this.__init(data);
 
-        console.log("Timer constructor >", this.__getUIData());
+        this._addComponent(ui.Separator({ position: 2 }));
+        this._addComponent(ui.Separator({ position: 4 }));
+
+        //console.log("Timer constructor >", this.__getUIData());
     }
 
     @ui.Button("Start")

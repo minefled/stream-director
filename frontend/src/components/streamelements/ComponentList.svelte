@@ -7,6 +7,7 @@
     import TextInput from "./components/TextInput.svelte";
     import Button from "./components/Button.svelte";
     import NumberSlider from "./components/NumberSlider.svelte";
+    import Separator from "./components/Separator.svelte";
 
     //// Public Variables ////
     export let components:Component[] = [];
@@ -61,6 +62,9 @@
 
             on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
         />
+
+    {:else if c.type == "separator"}
+        <Separator />
     {/if}
 {/each}
 
