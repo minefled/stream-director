@@ -18,7 +18,7 @@ export class Client {
     private onMessage(message:string) {
         let data = JSON.parse(message) as Packet;
 
-        console.log(data);
+        //console.log(data);
         
         switch(data.type) {
             case "get":

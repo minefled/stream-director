@@ -1,7 +1,7 @@
 {
   "main": "./dist/index.js",
   "bin": {
-    "stream-director": "./dist/index.js"
+    "stream-director": "dist/index.js"
   },
   "dependencies": {
     "@types/cli-color": "^2.0.2",
@@ -17,5 +17,12 @@
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc -w"
-  }
+  },
+  "name": "stream-director",
+  "version": "1.0.2",
+  "devDependencies": {},
+  "author": "minefled",
+  "license": "MIT",
+  "description": "",
+  "keywords": ["stream", "tool", "cli"]
 }

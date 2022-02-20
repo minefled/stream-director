@@ -25,7 +25,7 @@
     </div>
 
     <div class="view-button" on:click={viewScene}>
-        <img src="/assets/icons/view.png" alt="">
+        <img src="assets/icons/view.png" alt="">
     </div>
 </div>
 

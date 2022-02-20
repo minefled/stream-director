@@ -22,7 +22,7 @@ export class Server {
         this.setupRoutes();
 
         this.server.listen(port, () => {
-            clc.green(`Server is listening on port ${port}`);
+            console.log(clc.green("[   Server   ]"), `Server is listening on port ${port}`);
         });
     }
 
@@ -31,6 +31,7 @@ export class Server {
 
         this.app.get("/elements/:plugin_id/*", (req, res) => {this.handleGetElement(req, res);});
         this.app.use("/sdk/", express.static(join(__dirname, "../../../../sdk/js/dist/")));
+        this.app.use("/admin/", express.static(join(__dirname, "../../../../frontend/public/")));
 
         this.setupGateway();
     }

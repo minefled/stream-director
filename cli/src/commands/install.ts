@@ -8,7 +8,7 @@ import * as unzipper from "unzipper";
 import { exec, execSync } from "child_process";
 
 export async function install() {
-    let installPath = join(process.cwd(), "../../StreamDirectorCliTest/");                  // Later, in Release, only the cwd will be used. This is only for development
+    let installPath = process.cwd();
     let downloadURL = "https://codeload.github.com/minefled/stream-director/zip/master";
 
     console.log(clc.green(`Installing Stream Director into ${installPath}`));

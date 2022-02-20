@@ -40,7 +40,7 @@ export class TwitchAPI {
         let data = await response.json();
 
         if(data.access_token) {
-            console.log(clc.green("[Twitch API] Successfully got Twitch API Access Token!"));
+            console.log(clc.green("[ Twitch API ]"), "Successfully got Twitch API Access Token!");
         }
 
         this.accessToken = data.access_token;
@@ -70,15 +70,15 @@ export class TwitchAPI {
             this.accessToken = data.accessToken || "";
             this.tokenExpiresAt = data.expiresAt || 0;
 
-            console.log(clc.green("[Twitch API] Loaded Twitch Credentials from local file"));
+            console.log(clc.green("[ Twitch API ]"), "Loaded Twitch Credentials from local file");
 
             if(new Date().getTime() > this.tokenExpiresAt) {
-                console.log(clc.yellow("[Twitch API] Twitch Access Token expired! Getting new one..."));
+                console.log(clc.yellow("[ Twitch API ] Twitch Access Token expired! Getting new one..."));
                 await this.getAccessToken();
             }
 
             if(await this.isAccessTokenValid(this.accessToken) == false) {
-                console.log(clc.yellow("[Twitch API] Twitch Access Token invalid! Getting new one..."));
+                console.log(clc.yellow("[ Twitch API ] Twitch Access Token invalid! Getting new one..."));
                 await this.getAccessToken();
             }
         } else {
