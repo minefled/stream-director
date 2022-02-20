@@ -70,6 +70,10 @@ export default class APIClient {
             case "update_element_state_value":
                 this.handleUpdateElementStateValue(data);
                 break;
+
+            case "is_live":
+                this.handleIsLivePacket(data);
+                break;
         }
     }
 
@@ -96,6 +100,16 @@ export default class APIClient {
                     type: "packet",
                     data: { packet }
                 });
+
+                break;
+
+            case "is_live":
+                this.events.dispatch({
+                    type: "packet",
+                    data: { packet }
+                });
+
+                break;
         }
     }
 
@@ -121,6 +135,17 @@ export default class APIClient {
                 element_id: packet.data?.element_id,
                 property_key: packet.data?.property_key,
                 value: packet.data?.value
+            }
+        });
+    }
+
+    private handleIsLivePacket(packet:Packet) {
+        if(packet.data?.is_live == undefined) return;
+
+        this.events.dispatch({
+            type: "is_live_update",
+            data: {
+                is_live: packet.data?.is_live
             }
         });
     }
@@ -182,6 +207,20 @@ export default class APIClient {
                 scene_id: sceneID,
                 property_key: propertyKey
             }
+        });
+    }
+
+    async getIsLive():Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            this.sendData({type: "get", data: {resource: "is_live"}});
+
+            this.events.createEventAwaiter(
+                event => event.type == "packet" && event.data?.packet?.type == "get_response" && event.data?.packet?.data?.resource == "is_live",
+                event => {
+                    this.cache.isLive = event.data?.packet?.data?.is_live || false;
+                    resolve(this.cache.isLive);
+                }
+            )
         });
     }
 

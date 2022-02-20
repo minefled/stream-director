@@ -11,7 +11,7 @@
     export let selectedSceneID:string;
 
     /* == Internal Variables == */
-    let isLive:boolean = false;
+    let isLive:boolean = null;
     let isConnected:boolean = false;
 
     let timeString = new Date().toLocaleTimeString();
@@ -33,18 +33,17 @@
             timeString = new Date().toLocaleTimeString();
         }, 500);
 
-        setTimeout(() => {
-            isLive = true;
-        }, 5000);
-
-        updateIsLiveText();
-
         api.events.createEventListener(e => e.type == "connect", async () => {
             isConnected = true;
 
             allScenes = (await api.getScenes()).scenes;
+            isLive = (await api.getIsLive());
         });
         api.events.createEventListener(e => e.type == "disconnect", () => {isConnected = false;});
+
+        api.events.createEventListener(e => e.type == "is_live_update", (e) => {
+            isLive = e.data.is_live;
+        });
     });
 
     afterUpdate(() => {
@@ -54,6 +53,7 @@
 
     /* == Internal Functions == */
     function updateIsLiveText() {
+        if(!isLive) return;
         if(oldIsLive == isLive) return;
         oldIsLive = isLive;
 

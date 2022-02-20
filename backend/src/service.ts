@@ -21,7 +21,7 @@ export class Service {
         this.elements = new ElementManager(this);
         this.scenes = new SceneManager(this, rawInitialData["scenes"]);
 
-        this.twitch = new TwitchAPI();
+        this.twitch = new TwitchAPI(this);
 
         this.elements.events.on("element-plugins-loaded", () => {
             this.elements.loadFromStoredData(rawInitialData["elements"]);

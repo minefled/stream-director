@@ -8,4 +8,7 @@ export interface APICache {
 
     /* StreamElements */
     elements?:StreamElement[];
+
+    
+    isLive?:boolean;
 }

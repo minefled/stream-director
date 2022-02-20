@@ -22,6 +22,7 @@
   },
   "scripts": {
     "dev": "(tsc -w &) && (tsc -p tsconfig-elements.json -w &) && (nodemon dist/src/index.js --ignore data)",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "node dist/src/index.js"
   }
 }

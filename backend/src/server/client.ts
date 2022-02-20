@@ -57,7 +57,7 @@ export class Client {
                     resource,
                     scenes: this.server.service.scenes.exportData()
                 }
-            })
+            });
         }
 
         if(resource == "elements") {
@@ -67,7 +67,17 @@ export class Client {
                     resource,
                     elements: this.server.service.elements.exportFrontendData()
                 }
-            })
+            });
+        }
+
+        if(resource == "is_live") {
+            this.send({
+                type: "get_response",
+                data: {
+                    resource,
+                    is_live: this.server.service.twitch.isLive
+                }
+            });
         }
     }
 
