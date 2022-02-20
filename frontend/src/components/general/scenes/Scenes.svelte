@@ -72,7 +72,7 @@
         width: 12vw;
         height: 100%;
 
-        background-color: #28292e;
+        background-color: #25262c;
 
         display: flex;
         flex-direction: column;
@@ -127,7 +127,7 @@
         height: 30px;
         width: 30px;
 
-        background-color: #28292e;
+        background-color: #25262c;
 
         .mask {
             width: 100%;

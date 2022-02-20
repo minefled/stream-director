@@ -10,6 +10,6 @@
         margin-top: 0.6em;
         margin-bottom: 0.6em;
 
-        background-color: #28282f;
+        background-color: #26262e;
     }
 </style>

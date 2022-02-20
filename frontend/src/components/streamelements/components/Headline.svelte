@@ -30,7 +30,7 @@
         width: 100%;
         height: 2px;
 
-        background-color: #28282f;
+        background-color: #26262e;
     }
 
     b {

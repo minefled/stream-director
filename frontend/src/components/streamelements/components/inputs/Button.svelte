@@ -33,10 +33,10 @@
             width: 100%;
             height: 100%;
 
-            background-color: #1f1f23;
+            background-color: #212125;
 
             outline: none;
-            border: 1px solid #2d2d33;
+            border: 1px solid #28282e;
             border-radius: 4px;
 
             font-family: "Montserrat", Arial;

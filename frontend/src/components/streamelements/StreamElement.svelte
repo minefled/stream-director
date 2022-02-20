@@ -213,7 +213,7 @@ import ComponentList from "./ComponentList.svelte";
 
         border-radius: 0px 0px 8px 8px;
 
-        background-color: #1f1f23;
+        background-color: #1e1e22;
 
         transition: 0.5s;
 

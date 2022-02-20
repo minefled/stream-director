@@ -53,7 +53,7 @@
 
     /* == Internal Functions == */
     function updateIsLiveText() {
-        if(!isLive) return;
+        if(isLive == null) return;
         if(oldIsLive == isLive) return;
         oldIsLive = isLive;
 
@@ -90,7 +90,7 @@
         width: 100%;
         height: 50px;
 
-        background-color: #28292e;
+        background-color: #25262c;
 
         display: flex;
         flex-direction: row;

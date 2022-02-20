@@ -24,5 +24,9 @@
   "author": "minefled",
   "license": "MIT",
   "description": "",
-  "keywords": ["stream", "tool", "cli"]
+  "keywords": ["stream", "tool", "cli"],
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/minefled/stream-director/cli"
+  }
 }

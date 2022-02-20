@@ -99,7 +99,7 @@
             width: 1em;
 
             border-radius: 50%;
-            background-color: #1f1f23;
+            background-color: #222327;
             border: 2px solid #2d2d33;
         }
 
@@ -108,7 +108,7 @@
             width: 1em;
 
             border-radius: 50%;
-            background-color: #1f1f23;
+            background-color: #222327;
             border: 2px solid #2d2d33;
         }
     }
