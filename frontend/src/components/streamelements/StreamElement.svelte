@@ -141,6 +141,7 @@ import ComponentList from "./ComponentList.svelte";
                             {#if c.type == "button"}
                                 <Button
                                     name={c.name}
+                                    options={c.options || {}}
                                     on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
                                 />
                             {/if}

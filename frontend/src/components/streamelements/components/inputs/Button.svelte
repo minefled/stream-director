@@ -1,17 +1,42 @@
 <script lang="ts">
-    import { createEventDispatcher } from "svelte";
+    import { createEventDispatcher, onMount } from "svelte";
+    import { HEXtoHSL, HSLToHEX } from "../../../../utils/colorConversion";
+
+    interface Options {
+        color?:string;
+    }
 
     export let name:string;
+    export let options:Options;
+
+    let backgroundColor:string = "212125";
+    let borderColor:string = "28282e";
 
     let dispatch = createEventDispatcher();
 
     function dispatchClickEvent() {
         dispatch("click");
     }
+
+    onMount(() => {
+        console.log(options.color, name);
+
+        if(options?.color) {
+            backgroundColor = options.color;
+
+            let hsl = HEXtoHSL(backgroundColor);
+            borderColor = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l*1.15}%)`;
+
+            console.log(borderColor);
+        }
+    });
 </script>
 
 <div class="btn">
-    <button on:click={dispatchClickEvent}>{name}</button>
+    <button
+        on:click={dispatchClickEvent}
+        style="background-color: #{backgroundColor};border: 1px solid {borderColor};"
+    >{name}</button>
 </div>
 
 <style lang="scss">

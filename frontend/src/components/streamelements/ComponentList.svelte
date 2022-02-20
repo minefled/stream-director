@@ -7,9 +7,10 @@
     import TextInput from "./components/inputs/TextInput.svelte";
     import Button from "./components/inputs/Button.svelte";
     import NumberSlider from "./components/inputs/NumberSlider.svelte";
+    import Switch from "./components/inputs/Switch.svelte";
 
     import Separator from "./components/Separator.svelte";
-import Headline from "./components/Headline.svelte";
+    import Headline from "./components/Headline.svelte";
 
     //// Public Variables ////
     export let components:Component[] = [];
@@ -24,6 +25,8 @@ import Headline from "./components/Headline.svelte";
     });
 
     afterUpdate(() => {
+        console.log(state);
+
         sortComponents();
     });
 
@@ -53,6 +56,7 @@ import Headline from "./components/Headline.svelte";
         <div class="button-container">
             <Button
                 name={c.name}
+                options={c.options || {}}
                 on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
             />
         </div>
@@ -62,6 +66,12 @@ import Headline from "./components/Headline.svelte";
             value={state[c.propertyKey] || 0}
             options={c.options || {}}
 
+            on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
+        />
+    {:else if c.type == "switch"}
+        <Switch
+            name={c.name}
+            value={state[c.propertyKey]}
             on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
         />
 

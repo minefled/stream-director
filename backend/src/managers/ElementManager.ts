@@ -80,7 +80,7 @@ export class ElementManager {
             /* == Plugin has been imported == */
             let success = this.registerElementClass(plugin.default.id, plugin.default.elementClass);
 
-            if(success) console.log(`${clc.green("[  Elements  ]")} Loaded element plugin ${clc.cyanBright(plugin.default.name)}`);
+            if(success) console.log(`${clc.green("[  Elements  ]")} Loaded element plugin ${clc.cyanBright(plugin.default.name + " (" + plugin.default.id + ")")}`);
             else console.log(`${clc.red("[  Elements  ]")} Unable to load element plugin ${clc.cyanBright(plugin.default.name)}`);
         }
 

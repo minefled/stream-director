@@ -34,7 +34,7 @@
 
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 10px;
+        gap: 16px;
 
         opacity: 0%;
         animation: 1s appearing forwards 0.25s;
