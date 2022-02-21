@@ -15,7 +15,9 @@ export class Score extends StreamElement {
 
     @ui.ToggleButton("Is Visible", {
         textOff: "No",
-        textOn: "Yes"
+        textOn: "Yes",
+        colorOff: "c44955",
+        colorOn: "4c9e5b"
     }) isVisible:boolean = false;
 
     constructor(data:StreamElementInitializationData) {

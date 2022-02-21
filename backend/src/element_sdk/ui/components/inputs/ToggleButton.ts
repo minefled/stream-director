@@ -16,6 +16,16 @@ export interface ToggleButtonOptions {
      * Defines the additional text that the Toggle Button will display when the value is true
      */
     textOn?:string;
+
+    /**
+     * The color of the Toggle Button when the value is false
+     */
+    colorOff?:string;
+
+    /**
+     * The color of the Toggle Button when the value is true
+     */
+    colorOn?:string;
 }
 
 /**

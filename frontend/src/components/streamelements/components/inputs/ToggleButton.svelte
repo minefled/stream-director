@@ -1,9 +1,12 @@
 <script lang="ts">
     import { createEventDispatcher, onMount } from "svelte";
+import { HEXtoHSL } from "../../../../utils/colorConversion";
 
     interface Options {
         textOff?:string;
         textOn?:string;
+        colorOff?:string;
+        colorOn?:string;
     }
 
     export let name:string;
@@ -13,11 +16,24 @@
     let textOff = "OFF";
     let textOn = "ON";
 
+    let backgroundColorOff:string = "212125";
+    let borderColorOff:string = "28282e";
+    let backgroundColorOn:string = "212125";
+    let borderColorOn:string = "28282e";
+
     let dispatch = createEventDispatcher();
 
     onMount(() => {
         textOff = options.textOff || "OFF";
         textOn = options.textOn || "ON";
+
+        backgroundColorOff = options.colorOff || "212125";
+        var hsl = HEXtoHSL(backgroundColorOff);
+        borderColorOff = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l*1.15}%)`;
+
+        backgroundColorOn = options.colorOn || "212125";
+        var hsl = HEXtoHSL(backgroundColorOn);
+        borderColorOn = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l*1.15}%)`;
     });
 
     function dispatchUpdateEvent() {
@@ -32,8 +48,9 @@
 
 <div class="switch-input">
     <button
-            on:click={toggle}
-        >{name} - {value ? textOn:textOff}</button>
+        on:click={toggle}
+        style="background-color: #{value ? backgroundColorOn:backgroundColorOff}; border: 1px solid {value? borderColorOn:borderColorOff}"
+    >{name} - {value ? textOn:textOff}</button>
 </div>
 
 <style lang="scss">
