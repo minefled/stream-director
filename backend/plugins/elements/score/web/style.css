@@ -6,3 +6,62 @@ html {
     background-color: #2c2d31;
     background-image: url("assets/developementBackground.png");
 }
+
+.score {
+    width: auto;
+    height: auto;
+
+    position: fixed;
+    top: 20px;
+    right: 20px;
+
+    background-color: #2b2d31;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+
+    padding: 0px 12px;
+
+    font-family: "Montserrat", Arial;
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+
+    transition: 0.6s;
+
+    opacity: 0%;
+
+    border-radius: 3px;
+}
+
+.scores {
+    min-width: 5ex;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    background: rgb(45,102,177);
+    background: linear-gradient(180deg, rgba(45,102,177,1) 0%, rgba(57,125,189,1) 100%); 
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    padding: 6px 10px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#name1 {
+    text-align: left;
+}
+
+#name2 {
+    text-align: right;
+}
+
+b {
+    white-space: nowrap;
+}
