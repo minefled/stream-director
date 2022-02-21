@@ -102,16 +102,6 @@ export class Client {
         if(!packet.data?.value == undefined) return;
 
         this.server.service.elements.updateElementStateValue(packet.data?.element_id, packet.data?.scene_id, packet.data?.property_key, packet.data?.value);
-
-        this.server.broadcast({
-            type: "update_element_state_value",
-            data: {
-                scene_id: packet.data?.scene_id,
-                element_id: packet.data?.element_id,
-                property_key: packet.data?.property_key,
-                value: packet.data?.value
-            }
-        });
     }
 
     private handleRunActionPacket(packet:Packet) {
