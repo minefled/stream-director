@@ -107,14 +107,4 @@
             }
         }
     }
-
-    @keyframes turn-off {
-        0% { width: 50%; }
-        100% { width: 0%; }
-    }
-
-    @keyframes turn-on {
-        0% { width: 0%; }
-        100% { width: 50%; }
-    }
 </style>

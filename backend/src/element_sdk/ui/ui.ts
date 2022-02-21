@@ -3,6 +3,7 @@ import { Button } from "./components/inputs/Button";
 import { NumberSlider } from "./components/inputs/NumberSlider";
 import { Switch } from "./components/inputs/Switch";
 import { NumberInput } from "./components/inputs/NumberInput";
+import { ToggleButton } from "./components/inputs/ToggleButton";
 
 import { ButtonGroup } from "./modifiers/ButtonGroup";
 
@@ -15,6 +16,7 @@ export const ui = {
     NumberSlider,
     Switch,
     NumberInput,
+    ToggleButton,
 
     ButtonGroup,
 

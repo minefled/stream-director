@@ -1,7 +1,6 @@
 import { StreamElement } from "../../../../src/element_sdk/element/StreamElement";
 import type { ActionExecuteData } from "../../../../src/element_sdk/element/types/ActionExecuteData";
 import type { StreamElementInitializationData } from "../../../../src/element_sdk/element/types/StreamElementInitializationData";
-import { state } from "../../../../src/element_sdk/state/state";
 import { ui } from "../../../../src/element_sdk/ui/ui";
 
 export class Score extends StreamElement {
@@ -14,7 +13,10 @@ export class Score extends StreamElement {
     @ui.TextInput("Name") namePlayer2:string = "";
     @ui.NumberInput("Score") scorePlayer2:number = 0;
 
-    @ui.Switch("Is Visible") isVisible:boolean = false;
+    @ui.ToggleButton("Is Visible", {
+        textOff: "No",
+        textOn: "Yes"
+    }) isVisible:boolean = false;
 
     constructor(data:StreamElementInitializationData) {
         /* == Initialization stuff == */
