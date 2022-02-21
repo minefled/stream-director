@@ -32,6 +32,8 @@ export class StreamElement {
 
     __elementManager:ElementManager;
 
+    private __preventedUpdateEvents:{propertyKey:string, value:any}[] = [];
+
     constructor(
         public __config:StreamElementConfig
     ) {
@@ -178,15 +180,27 @@ export class StreamElement {
             }
         }
 
-        this.__elementManager.service.server.websocket.broadcast({
-            type: "update_element_state_value",
-            data: {
-                element_id: this.__id,
-                scene_id: this.__selectedScene,
-                property_key: propertyKey,
-                value: this[propertyKey]
+        //// Check if update event has been prevented from being broadcast to every client ////
+        var isPrevented = false;
+
+        for(var i=0;i<this.__preventedUpdateEvents.length;i++) {
+            if(this.__preventedUpdateEvents[i].propertyKey == propertyKey && this.__preventedUpdateEvents[i].value == this[propertyKey]) {
+                isPrevented = true;
+                this.__preventedUpdateEvents = this.__preventedUpdateEvents.splice(i, 1);
             }
-        });
+        }
+
+        if(!isPrevented) {
+            this.__elementManager.service.server.websocket.broadcast({
+                type: "update_element_state_value",
+                data: {
+                    element_id: this.__id,
+                    scene_id: this.__selectedScene,
+                    property_key: propertyKey,
+                    value: this[propertyKey]
+                }
+            });
+        }
 
         this.__elementManager.onElementUpdate();
     }
@@ -198,7 +212,10 @@ export class StreamElement {
             }
         }
 
-        if(sceneID == this.__selectedScene) this[propertyKey] = value;
+        if(sceneID == this.__selectedScene) {
+            this.__preventedUpdateEvents.push({propertyKey, value});
+            this[propertyKey] = value;
+        }
 
         this.__elementManager.onElementUpdate();
     }
