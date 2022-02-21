@@ -9,8 +9,10 @@ export class Score extends StreamElement {
     __classID = "score";
 
     @ui.TextInput("Name") namePlayer1:string = "";
+    @ui.NumberInput("Score") scorePlayer1:number = 0;
 
     @ui.TextInput("Name") namePlayer2:string = "";
+    @ui.NumberInput("Score") scorePlayer2:number = 0;
 
     @ui.Switch("Is Visible") isVisible:boolean = false;
 
@@ -22,8 +24,8 @@ export class Score extends StreamElement {
         this.__init(data);
 
         this._addComponent(ui.Headline("Player 1", { position: -1 }));
-        this._addComponent(ui.Headline("Player 1", { position: 1 }));
-        this._addComponent(ui.Headline("Visibility", { position: 2 }));
+        this._addComponent(ui.Headline("Player 2", { position: 1.5 }));
+        this._addComponent(ui.Headline("Visibility", { position: 4 }));
     }
 
     @ui.ButtonGroup("visibility")

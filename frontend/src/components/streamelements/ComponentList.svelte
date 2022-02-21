@@ -11,6 +11,7 @@
 
     import Separator from "./components/Separator.svelte";
     import Headline from "./components/Headline.svelte";
+import NumberInput from "./components/inputs/NumberInput.svelte";
 
     //// Public Variables ////
     export let components:Component[] = [];
@@ -70,6 +71,12 @@
         />
     {:else if c.type == "switch"}
         <Switch
+            name={c.name}
+            value={state[c.propertyKey]}
+            on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
+        />
+    {:else if c.type == "number-input"}
+        <NumberInput
             name={c.name}
             value={state[c.propertyKey]}
             on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
