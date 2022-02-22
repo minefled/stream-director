@@ -12,8 +12,8 @@
     .headline {
         width: calc(100% - 80px);
 
-        margin-top: 0.5em;
-        margin-bottom: 0.5em;
+        margin-top: 0.8em;
+        margin-bottom: 0.8em;
 
         font-family: "Montserrat", Arial;
         font-size: 12px;

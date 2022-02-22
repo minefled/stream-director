@@ -48,6 +48,8 @@ export class StreamElement {
 
         let _this = this;
 
+        if(!this.__events) this.__events = new EventEmitter();
+
         this.__events.on("update", (propertyKey:string) => {
             _this.__onUpdate(propertyKey);
         });
