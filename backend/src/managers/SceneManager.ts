@@ -1,6 +1,7 @@
 import { Scene } from "../scenes/Scene";
 import { Service } from "../service";
 import type { SceneData } from "../scenes/SceneData";
+import { v4 as uuiV4 } from "uuid";
 
 export class SceneManager {
 
@@ -26,6 +27,26 @@ export class SceneManager {
             selectedSceneID: this.selectedSceneID,
             scenes: this.scenes
         };
+    }
+
+    createScene(name:string) {
+        let id = uuiV4();
+
+        this.scenes.push({
+            id,
+            name
+        });
+
+        this.service.elements.createScene(id);
+        this.service.storeData();
+
+        this.service.server.websocket.broadcast({
+            type: "create_scene",
+            data: {
+                scene_id: id,
+                name
+            }
+        });
     }
 
 }

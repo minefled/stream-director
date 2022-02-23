@@ -40,6 +40,10 @@ export class Client {
                 /* == A button has been pressed == */
                 this.handleRunActionPacket(data);
                 break;
+
+            case "create_scene":
+                /* == A new scene should be created == */
+                this.handleCreateScenePacket(data);
         }
     }
 
@@ -110,6 +114,12 @@ export class Client {
         if(!packet.data?.scene_id) return;
 
         this.server.service.elements.runElementAction(packet.data.element_id, packet.data.scene_id, packet.data.property_key);
+    }
+
+    private handleCreateScenePacket(packet:Packet) {
+        if(!packet.data?.name) return;
+
+        this.server.service.scenes.createScene(packet.data.name);
     }
 
 }

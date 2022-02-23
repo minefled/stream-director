@@ -159,4 +159,10 @@ export class ElementManager {
         this.service.storeData();
     }
 
+    createScene(sceneID:string) {
+        for(var e of this.elements) {
+            e.__addSceneState(sceneID);
+        }
+    }
+
 }

@@ -12,6 +12,8 @@
     export let scenes:_Scene[] = [];
     export let api:APIClient;
 
+    let playAnimation = false;
+
     onMount(() => {
         api.events.createEventAwaiter(event => event.type == "connect", async () => {
             let sceneData = await api.getScenes();
@@ -20,6 +22,10 @@
 
             // Initially select the viewed scene
             selectedSceneID = viewedSceneID;
+
+            setTimeout(() => {
+                playAnimation = false;
+            }, 10);
         });
 
         api.events.createEventListener(
@@ -28,7 +34,20 @@
                 viewedSceneID = event.data.scene_id;
             }
         );
+
+        api.events.createEventListener(
+            event => event.type == "scene_create",
+            event => {
+                addScene(event.data.scene_id, event.data.name);
+            }
+        )
     });
+
+    function addScene(id:string, name:string) {
+        //scenes.push({id, name});
+        //console.log(id, name);
+        scenes = [...scenes, {id, name}];
+    }
 
     function handleSelect(e) {
         selectedSceneID = e.detail?.id || "";
@@ -36,6 +55,10 @@
 
     function handleView(e) {
         api.selectScene(e.detail?.id || "");
+    }
+
+    function createScene() {
+        api.createScene("New Scene");
     }
 </script>
 
@@ -54,12 +77,21 @@
                 selected={selectedSceneID == scene.id}
                 view={viewedSceneID == scene.id}
 
-                appearAnimationDelay={i*0.1}
+                appearAnimationDelay={playAnimation ? i*0.1 : 0}
 
                 on:select={handleSelect}
                 on:view={handleView}
             />
         {/each}
+    </div>
+
+    <div class="create-scene">
+        <button
+            class="create-scene-btn"
+            on:click={createScene}
+        >
+            <img src="assets/icons/plus.png" alt="">
+        </button>
     </div>
 </div>
 
@@ -113,6 +145,36 @@
         flex-direction: column;
         align-items: center;
         gap: 6px;
+    }
+
+    .create-scene {
+        width: 60%;
+
+        margin-top: 16px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        button {
+            width: calc(100% - 16px);
+
+            background-color: #24252a;
+            border: 1px solid #2d3135;
+            border-radius: 5px;
+
+            padding: 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            img {
+                width: 12%;
+            }
+        }
     }
 
     /*

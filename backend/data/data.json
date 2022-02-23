@@ -1,6 +1,6 @@
 {
     "scenes": {
-        "selectedSceneID": "896ef77f-dddd-47bd-9f57-cf330f9c65ca",
+        "selectedSceneID": "781c69a2-7ed7-43bf-b395-1554aa3eb46e",
         "scenes": [
             {
                 "id": "781c69a2-7ed7-43bf-b395-1554aa3eb46e",
@@ -29,9 +29,9 @@
                     {
                         "id": "781c69a2-7ed7-43bf-b395-1554aa3eb46e",
                         "state": {
-                            "duration": 900,
+                            "duration": 15,
                             "text": "Streamstart",
-                            "endsAt": 0
+                            "endsAt": 1645464535322
                         }
                     },
                     {
@@ -56,6 +56,102 @@
                             "duration": 0,
                             "text": "Goodbye OwO",
                             "endsAt": 0
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "elementClassID": "score",
+            "data": {
+                "id": "68edad7c-dbec-423e-9461-ac1336f0f3f",
+                "scenes": [
+                    {
+                        "id": "781c69a2-7ed7-43bf-b395-1554aa3eb46e",
+                        "state": {
+                            "namePlayer1": "minefled",
+                            "scorePlayer1": 22,
+                            "namePlayer2": "DreiMu",
+                            "scorePlayer2": 6,
+                            "isVisible": true
+                        }
+                    },
+                    {
+                        "id": "93e3d261-0260-4008-bb51-22c85393758a",
+                        "state": {
+                            "namePlayer1": "",
+                            "scorePlayer1": 0,
+                            "namePlayer2": "",
+                            "scorePlayer2": 0,
+                            "isVisible": false
+                        }
+                    },
+                    {
+                        "id": "71f8293c-dd40-4f42-88bb-cdd7bd3dfd06",
+                        "state": {
+                            "namePlayer1": "",
+                            "scorePlayer1": 0,
+                            "namePlayer2": "",
+                            "scorePlayer2": 0,
+                            "isVisible": true
+                        }
+                    },
+                    {
+                        "id": "896ef77f-dddd-47bd-9f57-cf330f9c65ca",
+                        "state": {
+                            "namePlayer1": "",
+                            "scorePlayer1": 0,
+                            "namePlayer2": "",
+                            "scorePlayer2": 0,
+                            "isVisible": false
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "elementClassID": "demo-element",
+            "data": {
+                "id": "42e8141f-74f8-44b3-925b-3c1b2d8a6c6c",
+                "scenes": [
+                    {
+                        "id": "781c69a2-7ed7-43bf-b395-1554aa3eb46e",
+                        "state": {
+                            "text": "",
+                            "num": 0,
+                            "num2": 0,
+                            "switch": false,
+                            "toggleBtn": false
+                        }
+                    },
+                    {
+                        "id": "93e3d261-0260-4008-bb51-22c85393758a",
+                        "state": {
+                            "text": "",
+                            "num": 0,
+                            "num2": 0,
+                            "switch": false,
+                            "toggleBtn": false
+                        }
+                    },
+                    {
+                        "id": "71f8293c-dd40-4f42-88bb-cdd7bd3dfd06",
+                        "state": {
+                            "text": "",
+                            "num": 0,
+                            "num2": 0,
+                            "switch": false,
+                            "toggleBtn": false
+                        }
+                    },
+                    {
+                        "id": "896ef77f-dddd-47bd-9f57-cf330f9c65ca",
+                        "state": {
+                            "text": "",
+                            "num": 0,
+                            "num2": 0,
+                            "switch": false,
+                            "toggleBtn": false
                         }
                     }
                 ]

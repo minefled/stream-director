@@ -21,9 +21,12 @@ export interface PacketData {
     element_id?:string;
     property_key?:string;
     value?:any;
+
+    /* == create_scene Packet == */
+    name?:string;
 }
 
 export interface Packet {
-    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value"|"run_action";
+    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value"|"run_action"|"create_scene";
     data?:PacketData;
 }

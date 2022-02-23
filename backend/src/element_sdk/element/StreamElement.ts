@@ -205,6 +205,15 @@ export class StreamElement {
         this.__elementManager.onElementUpdate();
     }
 
+    __addSceneState(sceneID:string) {
+        if(this.__getSceneState(sceneID) != null) return;
+
+        this.__scenes.push({
+            id: sceneID,
+            state: this.__getSceneState(this.__selectedScene)?.state || {}
+        });
+    }
+
     __runAction(sceneID:string, propertyKey:string) {
         if(typeof this[propertyKey] !== "function") return;
 

@@ -74,6 +74,10 @@ export default class APIClient {
             case "is_live":
                 this.handleIsLivePacket(data);
                 break;
+
+            case "create_scene":
+                this.handleCreateScenePacket(data);
+                break;
         }
     }
 
@@ -150,6 +154,19 @@ export default class APIClient {
         });
     }
 
+    private handleCreateScenePacket(packet:Packet) {
+        if(!packet.data?.scene_id) return;
+        if(!packet.data?.name) return;
+
+        this.events.dispatch({
+            type: "scene_create",
+            data: {
+                scene_id: packet.data.scene_id,
+                name: packet.data.name
+            }
+        });
+    }
+
     /* === Functions for external use === */
 
     async getScenes():Promise<SceneData> {
@@ -222,6 +239,15 @@ export default class APIClient {
                 }
             )
         });
+    }
+
+    createScene(name:string) {
+        this.sendData({
+            type: "create_scene",
+            data: {
+                name
+            }
+        })
     }
 
 }
