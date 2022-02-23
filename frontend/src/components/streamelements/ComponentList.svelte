@@ -27,8 +27,6 @@ import ToggleButton from "./components/inputs/ToggleButton.svelte";
     });
 
     afterUpdate(() => {
-        console.log(state);
-
         sortComponents();
     });
 

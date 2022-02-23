@@ -44,8 +44,6 @@
     });
 
     function addScene(id:string, name:string) {
-        //scenes.push({id, name});
-        //console.log(id, name);
         scenes = [...scenes, {id, name}];
     }
 

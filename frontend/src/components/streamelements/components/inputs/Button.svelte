@@ -19,15 +19,11 @@
     }
 
     onMount(() => {
-        console.log(options.color, name);
-
         if(options?.color) {
             backgroundColor = options.color;
 
             let hsl = HEXtoHSL(backgroundColor);
             borderColor = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l*1.15}%)`;
-
-            console.log(borderColor);
         }
     });
 </script>
