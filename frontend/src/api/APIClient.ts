@@ -78,6 +78,10 @@ export default class APIClient {
             case "create_scene":
                 this.handleCreateScenePacket(data);
                 break;
+
+            case "delete_scene":
+                this.handleDeleteScenePacket(data);
+                break;
         }
     }
 
@@ -167,6 +171,17 @@ export default class APIClient {
         });
     }
 
+    private handleDeleteScenePacket(packet:Packet) {
+        if(!packet.data?.scene_id) return;
+
+        this.events.dispatch({
+            type: "scene_delete",
+            data: {
+                scene_id: packet.data.scene_id
+            }
+        });
+    }
+
     /* === Functions for external use === */
 
     async getScenes():Promise<SceneData> {
@@ -247,7 +262,16 @@ export default class APIClient {
             data: {
                 name
             }
-        })
+        });
+    }
+
+    deleteScene(id:string) {
+        this.sendData({
+            type: "delete_scene",
+            data: {
+                scene_id: id
+            }
+        });
     }
 
 }

@@ -165,4 +165,10 @@ export class ElementManager {
         }
     }
 
+    deleteScene(sceneID:string) {
+        for(var e of this.elements) {
+            e.__deleteScene(sceneID);
+        }
+    }
+
 }

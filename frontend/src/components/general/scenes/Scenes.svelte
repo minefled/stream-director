@@ -40,11 +40,29 @@
             event => {
                 addScene(event.data.scene_id, event.data.name);
             }
+        );
+
+        api.events.createEventListener(
+            event => event.type == "scene_delete",
+            event => {
+                deleteScene(event.data.scene_id);
+            }
         )
     });
 
     function addScene(id:string, name:string) {
         scenes = [...scenes, {id, name}];
+    }
+
+    function deleteScene(id:string) {
+        for(var i=0;i<scenes.length;i++) {
+            if(scenes[i].id == id) {
+                scenes.splice(i, 1);
+                scenes = scenes;
+
+                selectedSceneID = scenes[0]?.id || "";
+            }
+        }
     }
 
     function handleSelect(e) {

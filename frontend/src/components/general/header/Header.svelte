@@ -67,6 +67,10 @@
     function updateSelectedSceneName() {
         for(var s of allScenes) if(s.id == selectedSceneID) selectedSceneName = s.name;
     }
+
+    function deleteScene() {
+        api.deleteScene(selectedSceneID);
+    }
 </script>
 
 <div class="header">
@@ -76,6 +80,7 @@
 
     <div class="scene-section">
         <b class="selected-scene-name">{selectedSceneName}</b>
+        <img src="assets/icons/delete.png" alt="" class="delete-icon" on:click={deleteScene}>
     </div>
 
     <div class="stream-info-section">
@@ -129,6 +134,27 @@
         color: #ffffff;
 
         margin-left: 1.3em;
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            height: 1em;
+
+            cursor: pointer;
+            filter: grayscale(1);
+            transition: 0.3s;
+
+            &:hover {
+                filter: grayscale(0);
+            }
+
+            &.delete-icon {
+                margin-left: 0.6em;
+            }
+        }
     }
 
     .stream-info-section {

@@ -49,4 +49,22 @@ export class SceneManager {
         });
     }
 
+    deleteScene(id:string) {
+        for(var i=0;i<this.scenes.length;i++) {
+            if(this.scenes[i].id == id) {
+                this.scenes.splice(i, 1);
+            }
+        }
+
+        this.service.server.websocket.broadcast({
+            type: "delete_scene",
+            data: {
+                scene_id: id
+            }
+        });
+
+        this.service.elements.deleteScene(id);
+        this.service.storeData();
+    }
+
 }

@@ -214,6 +214,16 @@ export class StreamElement {
         });
     }
 
+    __deleteScene(sceneID:string) {
+        if(this.__getSceneState(sceneID) == null) return;
+
+        for(let i=0;i<this.__scenes.length;i++) {
+            if(this.__scenes[i].id == sceneID) {
+                this.__scenes.splice(i, 1);
+            }
+        }
+    }
+
     __runAction(sceneID:string, propertyKey:string) {
         if(typeof this[propertyKey] !== "function") return;
 

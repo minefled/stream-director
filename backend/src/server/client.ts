@@ -44,6 +44,10 @@ export class Client {
             case "create_scene":
                 /* == A new scene should be created == */
                 this.handleCreateScenePacket(data);
+
+            case "delete_scene":
+                /* == Scene should be deleted == */
+                this.handleDeleteScenePacket(data);
         }
     }
 
@@ -120,6 +124,12 @@ export class Client {
         if(!packet.data?.name) return;
 
         this.server.service.scenes.createScene(packet.data.name);
+    }
+
+    private handleDeleteScenePacket(packet:Packet) {
+        if(!packet.data?.scene_id) return;
+
+        this.server.service.scenes.deleteScene(packet.data.scene_id);
     }
 
 }
