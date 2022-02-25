@@ -24,9 +24,12 @@ export interface PacketData {
 
     /* == create_scene Packet == */
     name?:string;
+
+    /* == rename_scene Packet */
+    new_name?:string;
 }
 
 export interface Packet {
-    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value"|"run_action"|"create_scene"|"delete_scene";
+    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value"|"run_action"|"create_scene"|"delete_scene"|"rename_scene";
     data?:PacketData;
 }

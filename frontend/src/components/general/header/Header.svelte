@@ -4,7 +4,9 @@
     import Typewriter from "typewriter-effect/dist/core";
 
     import type APIClient from "../../../api/APIClient";
+
     import type { Scene } from "../../../api/types/Scene";
+    import RenameScenePopup from "../popups/RenameScenePopup.svelte";
 
     /* == External Variables == */
     export let api:APIClient;
@@ -22,6 +24,9 @@
 
     let allScenes:Scene[] = [];
     let selectedSceneName:string = "";
+    let oldSelectedSceneID:string = "";
+
+    let isRenaming:boolean = false;
 
     /* == Svelte Functions == */
     onMount(() => {
@@ -44,9 +49,21 @@
         api.events.createEventListener(e => e.type == "is_live_update", (e) => {
             isLive = e.data.is_live;
         });
+
+        api.events.createEventListener(
+            event => event.type == "scene_create",
+            event => {
+                addScene(event.data.scene_id, event.data.name);
+            }
+        );
     });
 
     afterUpdate(() => {
+        if(oldSelectedSceneID != selectedSceneID) {
+            isRenaming = false;
+            oldSelectedSceneID = selectedSceneID;
+        }
+
         updateIsLiveText();
         updateSelectedSceneName();
     });
@@ -71,6 +88,11 @@
     function deleteScene() {
         api.deleteScene(selectedSceneID);
     }
+
+    function addScene(id:string, name:string) {
+        allScenes = [...allScenes, {id, name}];
+    }
+
 </script>
 
 <div class="header">
@@ -80,6 +102,7 @@
 
     <div class="scene-section">
         <b class="selected-scene-name">{selectedSceneName}</b>
+        <img src="assets/icons/edit.png" alt="" class="edit-icon" on:click={() => {isRenaming = true;}}>
         <img src="assets/icons/delete.png" alt="" class="delete-icon" on:click={deleteScene}>
     </div>
 
@@ -89,6 +112,16 @@
         <b bind:this={liveInfoTextElement}></b>
     </div>
 </div>
+
+{#if isRenaming}
+    <RenameScenePopup
+        sceneID={selectedSceneID}
+        sceneName={selectedSceneName}
+
+        on:cancel={() => { isRenaming = false; }}
+        on:submit={(e) => { api.renameScene(selectedSceneID, e.detail?.value || selectedSceneName); isRenaming = false; }}
+    />
+{/if}
 
 <style lang="scss">
     .header {
@@ -140,19 +173,46 @@
         align-items: center;
         justify-content: center;
 
+        input {
+            padding: 0.2em 1em;
+
+            width: 0px;
+
+            background-color: #222327;
+            border: 1px solid #25262c;
+            border-radius: 4px;
+
+            font-family: "Montserrat", Arial;
+            font-weight: 700;
+            font-size: 18px;
+            color: #ffffff;
+
+            animation: input-appear 0.8s;
+            transition: 0.8s;
+        }
+
+        @keyframes input-appear {
+            0% { opacity: 0%; }
+            100% { opacity: 100%; }
+        }
+
         img {
             height: 1em;
 
             cursor: pointer;
-            filter: grayscale(1);
+            filter: grayscale(0.5);
             transition: 0.3s;
 
             &:hover {
                 filter: grayscale(0);
             }
 
+            &.edit-icon {
+                margin-left: 1em;
+            }
+
             &.delete-icon {
-                margin-left: 0.6em;
+                margin-left: 0.5em;
             }
         }
     }

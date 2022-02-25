@@ -47,7 +47,14 @@
             event => {
                 deleteScene(event.data.scene_id);
             }
-        )
+        );
+
+        api.events.createEventListener(
+            event => event.type == "scene_rename",
+            event => {
+                renameScene(event.data.scene_id, event.data.new_name);
+            }
+        );
     });
 
     function addScene(id:string, name:string) {
@@ -61,6 +68,14 @@
                 scenes = scenes;
 
                 selectedSceneID = scenes[0]?.id || "";
+            }
+        }
+    }
+
+    function renameScene(id:string, newName:string) {
+        for(var i=0;i<scenes.length;i++) {
+            if(scenes[i].id == id) {
+                scenes[i].name = newName;
             }
         }
     }

@@ -82,6 +82,10 @@ export default class APIClient {
             case "delete_scene":
                 this.handleDeleteScenePacket(data);
                 break;
+
+            case "rename_scene":
+                this.handleRenameScenePacket(data);
+                break;
         }
     }
 
@@ -182,6 +186,19 @@ export default class APIClient {
         });
     }
 
+    private handleRenameScenePacket(packet:Packet) {
+        if(!packet.data?.scene_id) return;
+        if(!packet.data?.new_name) return;
+
+        this.events.dispatch({
+            type: "scene_rename",
+            data: {
+                scene_id: packet.data.scene_id,
+                new_name: packet.data.new_name
+            }
+        });
+    }
+
     /* === Functions for external use === */
 
     async getScenes():Promise<SceneData> {
@@ -272,6 +289,16 @@ export default class APIClient {
                 scene_id: id
             }
         });
+    }
+
+    renameScene(id:string, newName:string) {
+        this.sendData({
+            type: "rename_scene",
+            data: {
+                scene_id: id,
+                new_name: newName
+            }
+        })
     }
 
 }

@@ -1,6 +1,6 @@
 import type { Packet } from "../types/Packet";
 
-export type eventType = "packet" | "connect" | "disconnect" | "select_scene" | "update_element_state_value" | "is_live_update" | "scene_create" | "scene_delete";
+export type eventType = "packet" | "connect" | "disconnect" | "select_scene" | "update_element_state_value" | "is_live_update" | "scene_create" | "scene_delete" | "scene_rename";
 
 export interface EventData {
     packet?:Packet;
@@ -17,6 +17,9 @@ export interface EventData {
 
     /* == scene_create Event == */
     name?:string;
+
+    /* == scene_rename Event == */
+    new_name?:string;
 }
 
 export interface Event {

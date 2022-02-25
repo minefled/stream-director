@@ -48,6 +48,10 @@ export class Client {
             case "delete_scene":
                 /* == Scene should be deleted == */
                 this.handleDeleteScenePacket(data);
+
+            case "rename_scene":
+                /* == Scene should be renamed == */
+                this.handleRenameScenePacket(data);
         }
     }
 
@@ -130,6 +134,13 @@ export class Client {
         if(!packet.data?.scene_id) return;
 
         this.server.service.scenes.deleteScene(packet.data.scene_id);
+    }
+
+    private handleRenameScenePacket(packet:Packet) {
+        if(!packet.data?.scene_id) return;
+        if(!packet.data?.new_name) return;
+
+        this.server.service.scenes.renameScene(packet.data.scene_id, packet.data.new_name);
     }
 
 }

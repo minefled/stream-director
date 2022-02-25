@@ -67,4 +67,22 @@ export class SceneManager {
         this.service.storeData();
     }
 
+    renameScene(id:string, newName:string) {
+        for(var i=0;i<this.scenes.length;i++) {
+            if(this.scenes[i].id == id) {
+                this.scenes[i].name = newName;
+            }
+        }
+
+        this.service.server.websocket.broadcast({
+            type: "rename_scene",
+            data: {
+                scene_id: id,
+                new_name: newName
+            }
+        });
+
+        this.service.storeData();
+    }
+
 }
