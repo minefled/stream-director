@@ -91,6 +91,16 @@ export class Client {
                 }
             });
         }
+
+        if(resource == "element_classes") {
+            this.send({
+                type: "get_response",
+                data: {
+                    resource,
+                    element_classes: this.server.service.elements.exportClassesInfo()
+                }
+            });
+        }
     }
 
     private handleSelectScenePacket(packet:Packet) {

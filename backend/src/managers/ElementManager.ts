@@ -22,7 +22,7 @@ export class ElementManager {
         this.loadElementClasses();
     }
 
-    registerElementClass(id:string, elementClass:Function):boolean {
+    registerElementClass(id:string, name:string, elementClass:Function, description:string|undefined=undefined):boolean {
         // Check if element class has already been registered
         if(this.getElementClass(id) != null) {
             console.log(clc.redBright(`[  Elements  ] Element Class with id "${id}" already exists!`));
@@ -32,7 +32,10 @@ export class ElementManager {
         // Register element class
         this.elementClasses.push({
             id,
-            elementClass
+            name,
+            elementClass,
+
+            description
         });
 
         return true
@@ -78,7 +81,7 @@ export class ElementManager {
             let plugin = await import(p);
 
             /* == Plugin has been imported == */
-            let success = this.registerElementClass(plugin.default.id, plugin.default.elementClass);
+            let success = this.registerElementClass(plugin.default.id, plugin.default.name, plugin.default.elementClass, plugin.default.description);
 
             if(success) console.log(`${clc.green("[  Elements  ]")} Loaded element plugin ${clc.cyanBright(plugin.default.name + " (" + plugin.default.id + ")")}`);
             else console.log(`${clc.red("[  Elements  ]")} Unable to load element plugin ${clc.cyanBright(plugin.default.name)}`);
@@ -169,6 +172,10 @@ export class ElementManager {
         for(var e of this.elements) {
             e.__deleteScene(sceneID);
         }
+    }
+
+    exportClassesInfo() {
+        return this.elementClasses.map(x => { return {id: x.id, name: x.name, description: x.description}; });
     }
 
 }

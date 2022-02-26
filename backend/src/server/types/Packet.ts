@@ -3,7 +3,10 @@ import { SceneData } from "../../scenes/SceneData";
 
 export interface PacketData {
     /* == request Packet == */
-    resource?:"scenes"|"elements"|"element_states"|"element_ui_data"|"is_live";
+    resource?:"scenes"|"elements"|"element_states"|"element_ui_data"|"is_live"|"element_classes";
+
+    /* == request:element_classes Packet == */
+    element_classes?:{id:string, name:string}[];
 
     /* == is_live Packet == */
     is_live?:boolean;

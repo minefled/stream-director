@@ -1,5 +1,6 @@
 import { EventHandler } from "./events/EventHandler";
 import type { APICache } from "./types/Cache";
+import type { ElementPlugin } from "./types/ElementPlugin";
 import type { Packet } from "./types/Packet";
 import type { SceneData } from "./types/SceneData";
 import type { StreamElement } from "./types/StreamElement";
@@ -122,6 +123,12 @@ export default class APIClient {
                 });
 
                 break;
+
+            case "element_classes":
+                this.events.dispatch({
+                    type: "packet",
+                    data: { packet }
+                });
         }
     }
 
@@ -299,6 +306,20 @@ export default class APIClient {
                 new_name: newName
             }
         })
+    }
+
+    async getElementPlugins():Promise<ElementPlugin[]> {
+        return new Promise((resolve, reject) => {
+            this.sendData({type: "get", data: {resource: "element_classes"}});
+
+            this.events.createEventAwaiter(
+                event => event.type == "packet" && event.data?.packet?.type == "get_response" && event.data?.packet?.data?.resource == "element_classes",
+                event => {
+                    this.cache.element_plugins = event.data.packet.data.element_classes;
+                    resolve(this.cache.element_plugins);
+                }
+            )
+        });
     }
 
 }
