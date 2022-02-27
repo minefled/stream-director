@@ -2,6 +2,7 @@ import clc = require("cli-color");
 import { lstatSync, readdirSync } from "fs";
 import { join } from "path";
 import EventEmitter = require("events");
+import { v4 as uuidV4 } from "uuid";
 
 import { StreamElement } from "../element_sdk/element/StreamElement";
 import { ElementClass } from "../types/ElementClass";
@@ -56,6 +57,8 @@ export class ElementManager {
             console.log(`${clc.red("[  Elements  ]")} Unable to register Element. Element class "${classID}" not found!`);
             return null;
         }
+
+        //console.log(elementClass.prototype);
 
         let instance:StreamElement = new elementClass({
             data,
@@ -176,6 +179,24 @@ export class ElementManager {
 
     exportClassesInfo() {
         return this.elementClasses.map(x => { return {id: x.id, name: x.name, description: x.description}; });
+    }
+
+    addElement(pluginID:string) {
+        let ele = this.registerElement(pluginID, {
+            id: uuidV4(),
+            scenes: this.service.scenes.scenes.map(x => { return { id: x.id, state: {} }; })
+        });
+
+        if(!ele) return;
+
+        this.service.storeData();
+
+        this.service.server.websocket.broadcast({
+            type: "add_element",
+            data: {
+                element: ele.__exportFrontendData()
+            }
+        });
     }
 
 }

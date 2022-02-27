@@ -52,6 +52,10 @@ export class Client {
             case "rename_scene":
                 /* == Scene should be renamed == */
                 this.handleRenameScenePacket(data);
+
+            case "add_element":
+                /* == Element should be added == */
+                this.handleAddElementPacket(data);
         }
     }
 
@@ -151,6 +155,12 @@ export class Client {
         if(!packet.data?.new_name) return;
 
         this.server.service.scenes.renameScene(packet.data.scene_id, packet.data.new_name);
+    }
+
+    private handleAddElementPacket(packet:Packet) {
+        if(!packet.data?.plugin_id) return;
+
+        this.server.service.elements.addElement(packet.data.plugin_id);
     }
 
 }

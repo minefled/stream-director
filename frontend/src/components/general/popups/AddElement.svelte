@@ -1,6 +1,4 @@
 <script lang="ts">
-import { onMount } from "svelte";
-
     import type APIClient from "../../../api/APIClient";
 
     import AddElementButton from "./AddElementButton.svelte";
@@ -12,12 +10,6 @@ import { onMount } from "svelte";
     let hidingPopup = false;
 
     let allElementPlugins = null;
-
-    onMount(() => {
-        api.events.createEventListener(e => e.type == "connect", () => {
-            show();
-        });
-    });
 
     async function show() {
         hidingPopup = false;
@@ -37,6 +29,8 @@ import { onMount } from "svelte";
 
     function addElement(pluginID:string) {
         hide();
+
+        api.addElement(pluginID);
     }
 </script>
 

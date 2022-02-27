@@ -38,8 +38,6 @@ export interface NumberSliderOptions {
 export function NumberSlider(name:string, options:NumberSliderOptions) {
 
     return function(target: any, propertyKey: string) {
-        let value:string;
-        let initialSet = true;
 
         if(!target.hasOwnProperty("__uiComponents")) target.__uiComponents = [];
         target.__uiComponents.push({
@@ -48,23 +46,6 @@ export function NumberSlider(name:string, options:NumberSliderOptions) {
             name,
             propertyKey,
             options
-        });
-
-        Object.defineProperty(target, propertyKey, {
-            get: () => { return value; },
-            set: (v:string) => {
-                value = v;
-
-                if(initialSet) {
-                    initialSet = false;
-
-                    if(typeof target.__events !== "object") target.__events = new EventEmitter();
-                }
-
-                if(target.hasOwnProperty("__events")) {
-                    target.__events.emit("update", propertyKey);
-                }
-            }
         });
     }
 }

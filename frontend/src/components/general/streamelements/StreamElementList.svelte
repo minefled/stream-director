@@ -14,6 +14,13 @@
         api.events.createEventAwaiter(event => event.type == "connect", async () => {
             elements = await api.getElements();
         });
+
+        api.events.createEventListener(
+            event => event.type == "element_added",
+            event => {
+                elements = [...elements, event.data.element];
+            }
+        )
     });
 </script>
 

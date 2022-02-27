@@ -87,6 +87,10 @@ export default class APIClient {
             case "rename_scene":
                 this.handleRenameScenePacket(data);
                 break;
+
+            case "add_element":
+                this.handleAddElementPacket(data);
+                break;
         }
     }
 
@@ -206,6 +210,17 @@ export default class APIClient {
         });
     }
 
+    private handleAddElementPacket(packet:Packet) {
+        if(!packet.data?.element) return;
+
+        this.events.dispatch({
+            type: "element_added",
+            data: {
+                element: packet.data.element
+            }
+        });
+    }
+
     /* === Functions for external use === */
 
     async getScenes():Promise<SceneData> {
@@ -319,6 +334,15 @@ export default class APIClient {
                     resolve(this.cache.element_plugins);
                 }
             )
+        });
+    }
+
+    addElement(plugin_id:string) {
+        this.sendData({
+            type: "add_element",
+            data: {
+                plugin_id
+            }
         });
     }
 
