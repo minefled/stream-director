@@ -56,6 +56,10 @@ export class Client {
             case "add_element":
                 /* == Element should be added == */
                 this.handleAddElementPacket(data);
+
+            case "remove_element":
+                /* == An element should be removed == */
+                this.handleRemoveElementPacket(data);
         }
     }
 
@@ -161,6 +165,12 @@ export class Client {
         if(!packet.data?.plugin_id) return;
 
         this.server.service.elements.addElement(packet.data.plugin_id);
+    }
+
+    private handleRemoveElementPacket(packet:Packet) {
+        if(!packet.data?.element_id) return;
+
+        this.server.service.elements.removeElement(packet.data.element_id);
     }
 
 }

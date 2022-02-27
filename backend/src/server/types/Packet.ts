@@ -37,6 +37,6 @@ export interface PacketData {
 }
 
 export interface Packet {
-    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value"|"run_action"|"create_scene"|"delete_scene"|"rename_scene"|"add_element";
+    type:"get"|"get_response"|"is_live"|"select_scene"|"update_element_state_value"|"run_action"|"create_scene"|"delete_scene"|"rename_scene"|"add_element"|"remove_element";
     data?:PacketData;
 }

@@ -20,7 +20,20 @@
             event => {
                 elements = [...elements, event.data.element];
             }
-        )
+        );
+
+        api.events.createEventListener(
+            event => event.type == "element_removed",
+            event => {
+                for(var i=0;i<elements.length;i++) {
+                    if(elements[i].id == event.data.element_id) {
+                        elements.splice(i, 1);
+                    }
+                }
+
+                elements = elements;
+            }
+        );
     });
 </script>
 

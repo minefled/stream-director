@@ -91,6 +91,9 @@ export default class APIClient {
             case "add_element":
                 this.handleAddElementPacket(data);
                 break;
+
+            case "remove_element":
+                this.handleRemoveElementPacket(data);
         }
     }
 
@@ -221,6 +224,17 @@ export default class APIClient {
         });
     }
 
+    private handleRemoveElementPacket(packet:Packet) {
+        if(!packet.data?.element_id) return;
+
+        this.events.dispatch({
+            type: "element_removed",
+            data: {
+                element_id: packet.data.element_id
+            }
+        });
+    }
+
     /* === Functions for external use === */
 
     async getScenes():Promise<SceneData> {
@@ -345,5 +359,14 @@ export default class APIClient {
             }
         });
     }
+
+    removeElement(id:string) {
+        this.sendData({
+            type: "remove_element",
+            data: {
+                element_id: id
+            }
+        })
+    } 
 
 }

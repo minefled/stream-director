@@ -58,8 +58,6 @@ export class ElementManager {
             return null;
         }
 
-        //console.log(elementClass.prototype);
-
         let instance:StreamElement = new elementClass({
             data,
             elementManager: this,
@@ -195,6 +193,23 @@ export class ElementManager {
             type: "add_element",
             data: {
                 element: ele.__exportFrontendData()
+            }
+        });
+    }
+
+    removeElement(id:string) {
+        for(var i=0;i<this.elements.length;i++) {
+            if(this.elements[i].__id == id) {
+                this.elements.splice(i, 1);
+            }
+        }
+
+        this.service.storeData();
+
+        this.service.server.websocket.broadcast({
+            type: "remove_element",
+            data: {
+                element_id: id
             }
         });
     }

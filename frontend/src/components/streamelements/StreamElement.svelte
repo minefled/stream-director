@@ -1,16 +1,18 @@
 <script lang="ts">
     import { afterUpdate, onMount } from "svelte";
 
+    //// API ////
     import type APIClient from "../../api/APIClient";
     import type { StreamElement } from "../../api/types/StreamElement";
     import type { Component } from "../../api/types/UIComponent";
     import type { UIGroup } from "../../api/types/UIGroup";
 
-    import TextInput from "./components/inputs/TextInput.svelte";
+    //// Components ////
+    import ComponentList from "./ComponentList.svelte";
     import Button from "./components/inputs/Button.svelte";
-    import NumberSlider from "./components/inputs/NumberSlider.svelte";
     import ButtonGroup from "./groups/ButtonGroup.svelte";
-import ComponentList from "./ComponentList.svelte";
+
+    import StreamElementDropdown from "./dropdown/StreamElementDropdown.svelte";
 
     let expanded:boolean = false;
     let contentHeight:number = 0;
@@ -26,6 +28,10 @@ import ComponentList from "./ComponentList.svelte";
     let components:Component[] = [];
     let groups:any[] = [];
     let state:{ [key: string]: any; } = {};
+
+    let dropdownX:number;
+    let dropdownY:number;
+    let showDropdown:boolean = false;
 
     onMount(() => {
         _components = data.ui.components;
@@ -115,12 +121,26 @@ import ComponentList from "./ComponentList.svelte";
     function handleButtonClickEvent(e, propertyKey:string) {
         api.runAction(data.id, selectedSceneID, propertyKey);
     }
+
+    function handleHeadClick(e) {
+        if(e.target.nodeName.toUpperCase() != "IMG") expanded = !expanded;
+        else {
+            var r = e.target.getBoundingClientRect();
+
+            dropdownX = r.x;
+            dropdownY = r.y + r.height + 8;
+            showDropdown = !showDropdown;
+
+            //console.log(dropdownX);
+        }
+    }
 </script>
 
 <div class="control-panel">
-    <div class="head {expanded ? "content-exp":""}" on:click={() => {expanded = !expanded;}}>
+    <div class="head {expanded ? "content-exp":""}" on:click={handleHeadClick}>
         <div class="head-content">
             <b class="name">{data.ui.panel.name}</b>
+            <img src="assets/icons/options.png" alt="">
         </div>
     </div>
 
@@ -152,6 +172,19 @@ import ComponentList from "./ComponentList.svelte";
         </div>
     </div>
 </div>
+
+{#if showDropdown}
+    <StreamElementDropdown
+        x={dropdownX}
+        y={dropdownY}
+        elementID={data.id}
+
+        on:close={() => {showDropdown = false;}}
+        on:delete={() => {
+            api.removeElement(data.id);
+        }}
+    />
+{/if}
 
 <style lang="scss">
     .control-panel {
@@ -198,6 +231,13 @@ import ComponentList from "./ComponentList.svelte";
                 color: #ffffff;
 
                 margin-left: 0.6em;
+            }
+
+            img {
+                height: 20px;
+                width: 20px;
+
+                margin-right: 8px;
             }
         }
     }
