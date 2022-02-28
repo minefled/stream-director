@@ -41,9 +41,37 @@ import TextArea from "./components/inputs/TextArea.svelte";
     }
 
     function sortComponents() {
-        components = components.sort((a:Component, b:Component) => {
-            return ((a.options?.position || components.indexOf(a)) < (b.options?.position || components.indexOf(b))) ? -1 : 1;
-        });
+
+        let componentSpaces:Component[] = new Array(components.length);
+        for(var c of components) {
+            if(c.options?.position !== undefined && c.options?.position !== null) {
+                if(!componentSpaces[c.options?.position]) {
+                    // Spot is available
+                    componentSpaces[c.options?.position] = c;
+                } else {
+                    // Spot is not available
+                    for(var i=c.options?.position;i<components.length;i++) {
+                        if(!componentSpaces[i]) {
+                            componentSpaces[i] = c;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        for(var c of components) {
+            if(!c.options?.position) {
+                for(var j=0;j<components.length;j++) {
+                    if(!componentSpaces[j]) {
+                        componentSpaces[j] = c;
+                        break;
+                    }
+                }
+            }
+        }
+
+        components = componentSpaces;
     }
 </script>
 

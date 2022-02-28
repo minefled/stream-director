@@ -22,10 +22,10 @@ export class Demo extends StreamElement {
         });
         this.__init(data);
 
-        this._addComponent(ui.Headline("Text", {position: -0.5}));
-        this._addComponent(ui.Headline("Numbers", {position: 1.5}));
-        this._addComponent(ui.Headline("Booleans", {position: 3.5}));
-        this._addComponent(ui.Headline("Buttons", {position: 5.5}));
+        this._addComponent(ui.Headline("Text", {position: 0}));
+        this._addComponent(ui.Headline("Numbers", {position: 3}));
+        this._addComponent(ui.Headline("Booleans", {position: 6}));
+        this._addComponent(ui.Headline("Buttons", {position: 10}));
     }
 
     @ui.Button("Button wow")

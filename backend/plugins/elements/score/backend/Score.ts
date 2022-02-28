@@ -27,9 +27,9 @@ export class Score extends StreamElement {
         });
         this.__init(data);
 
-        this._addComponent(ui.Headline("Player 1", { position: -1 }));
-        this._addComponent(ui.Headline("Player 2", { position: 1.5 }));
-        this._addComponent(ui.Headline("Visibility", { position: 4 }));
+        this._addComponent(ui.Headline("Player 1", { position: 0 }));
+        this._addComponent(ui.Headline("Player 2", { position: 3 }));
+        this._addComponent(ui.Headline("Visibility", { position: 6 }));
     }
 
     @ui.ButtonGroup("visibility")
