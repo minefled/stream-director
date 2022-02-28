@@ -13,6 +13,8 @@
     import Headline from "./components/Headline.svelte";
 import NumberInput from "./components/inputs/NumberInput.svelte";
 import ToggleButton from "./components/inputs/ToggleButton.svelte";
+import Checkbox from "./components/inputs/Checkbox.svelte";
+import TextArea from "./components/inputs/TextArea.svelte";
 
     //// Public Variables ////
     export let components:Component[] = [];
@@ -84,6 +86,19 @@ import ToggleButton from "./components/inputs/ToggleButton.svelte";
         <ToggleButton
             name={c.name}
             value={state[c.propertyKey]}
+            options={c.options}
+            on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
+        />
+    {:else if c.type == "checkbox"}
+        <Checkbox
+            name={c.name}
+            value={state[c.propertyKey]}
+            on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
+        />
+    {:else if c.type == "textarea"}
+        <TextArea
+            name={c.name}
+            value={state[c.propertyKey] || ""}
             options={c.options}
             on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
         />

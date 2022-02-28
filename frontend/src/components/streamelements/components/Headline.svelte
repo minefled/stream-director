@@ -35,7 +35,7 @@
 
     b {
         white-space: nowrap;
-
         margin: 0em 1.2em;
+        font-weight: 500;
     }
 </style>

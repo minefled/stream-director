@@ -7,12 +7,13 @@ export class Demo extends StreamElement {
 
     __classID = "demo-element";
 
-    @ui.TextInput("Text") text:string = "";
-    @ui.NumberSlider("Number Slider", {min: 0, max: 15}) num:number = 0;
-    @ui.NumberInput("Number") num2:number = 0;
-    @ui.Switch("Switch") switch:boolean = false;
-    @ui.ToggleButton("Toggle Button") toggleBtn:boolean = false;
-
+    @ui.TextInput("Text")                                   text:string         = "";
+    @ui.TextArea("Textarea")                                textarea:string     = "";
+    @ui.NumberSlider("Number Slider", {min: 0, max: 15})    num:number          = 0;
+    @ui.NumberInput("Number")                               num2:number         = 0;
+    @ui.Switch("Switch")                                    switch:boolean      = false;
+    @ui.ToggleButton("Toggle Button")                       toggleBtn:boolean   = false;
+    @ui.Checkbox("Checkbox")                                checkbox:boolean    = false;
 
     constructor(data:StreamElementInitializationData) {
         /* == Initialization stuff == */
@@ -22,9 +23,9 @@ export class Demo extends StreamElement {
         this.__init(data);
 
         this._addComponent(ui.Headline("Text", {position: -0.5}));
-        this._addComponent(ui.Headline("Numbers", {position: 0.5}));
-        this._addComponent(ui.Headline("Booleans", {position: 2.5}));
-        this._addComponent(ui.Headline("Buttons", {position: 4.5}));
+        this._addComponent(ui.Headline("Numbers", {position: 1.5}));
+        this._addComponent(ui.Headline("Booleans", {position: 3.5}));
+        this._addComponent(ui.Headline("Buttons", {position: 5.5}));
     }
 
     @ui.Button("Button wow")
