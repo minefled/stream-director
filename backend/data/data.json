@@ -118,40 +118,48 @@
                         "id": "781c69a2-7ed7-43bf-b395-1554aa3eb46e",
                         "state": {
                             "text": "",
+                            "textarea": "",
                             "num": 0,
                             "num2": 0,
                             "switch": false,
-                            "toggleBtn": false
+                            "toggleBtn": false,
+                            "checkbox": false
                         }
                     },
                     {
                         "id": "93e3d261-0260-4008-bb51-22c85393758a",
                         "state": {
                             "text": "",
+                            "textarea": "",
                             "num": 0,
                             "num2": 0,
                             "switch": false,
-                            "toggleBtn": false
+                            "toggleBtn": false,
+                            "checkbox": false
                         }
                     },
                     {
                         "id": "71f8293c-dd40-4f42-88bb-cdd7bd3dfd06",
                         "state": {
                             "text": "",
+                            "textarea": "",
                             "num": 0,
                             "num2": 0,
                             "switch": false,
-                            "toggleBtn": false
+                            "toggleBtn": false,
+                            "checkbox": false
                         }
                     },
                     {
                         "id": "896ef77f-dddd-47bd-9f57-cf330f9c65ca",
                         "state": {
                             "text": "",
+                            "textarea": "",
                             "num": 0,
                             "num2": 0,
                             "switch": false,
-                            "toggleBtn": false
+                            "toggleBtn": false,
+                            "checkbox": false
                         }
                     }
                 ]

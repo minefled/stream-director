@@ -77,7 +77,7 @@
             justify-content: center;
 
             img {
-                height: 70%;
+                height: 60%;
             }
         }
     }
