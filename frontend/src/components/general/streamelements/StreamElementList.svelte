@@ -46,11 +46,12 @@
 <style lang="scss">
     .elements {
         width: calc(100% - 12vw - 60px);
-        max-height: calc(100vh - 12px - 50px);
+        height: max-content;
+        max-height: calc(100vh - 12px - 80px);
 
         margin-top: 30px;
         margin-left: 30px;
-        margin-right: 30px;
+        padding-right: 30px;
 
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -58,6 +59,8 @@
 
         opacity: 0%;
         animation: 1s appearing forwards 0.25s;
+
+        overflow-y: auto;
     }
 
     @keyframes appearing {
