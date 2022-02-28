@@ -1,4 +1,6 @@
 <script lang="ts">
+import { onMount } from "svelte";
+
     import type APIClient from "../../../api/APIClient";
 
     import AddElementButton from "./AddElementButton.svelte";
@@ -10,6 +12,16 @@
     let hidingPopup = false;
 
     let allElementPlugins = null;
+
+    onMount(() => {
+        document.body.addEventListener("keydown", (e) => {
+            if(e.key == "Escape" && showPopup) hide(); 
+        });
+    });
+
+    function onPopupContainerClick(e) {
+        if(e.target.classList.contains("popup-container")) hide();
+    }
 
     async function show() {
         hidingPopup = false;
@@ -37,7 +49,7 @@
 <AddElementButton on:click={show}/>
 
 {#if showPopup}
-    <div class="popup-container {hidingPopup?"hiding":""}">
+    <div class="popup-container {hidingPopup?"hiding":""}" on:click={onPopupContainerClick}>
         <div class="popup {hidingPopup?"hiding":""}">
             <div class="title">Add Element</div>
 

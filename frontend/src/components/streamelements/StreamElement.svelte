@@ -130,8 +130,6 @@
             dropdownX = r.x;
             dropdownY = r.y + r.height + 8;
             showDropdown = !showDropdown;
-
-            //console.log(dropdownX);
         }
     }
 </script>
@@ -140,7 +138,7 @@
     <div class="head {expanded ? "content-exp":""}" on:click={handleHeadClick}>
         <div class="head-content">
             <b class="name">{data.ui.panel.name}</b>
-            <img src="assets/icons/options.png" alt="">
+            <img src="assets/icons/options.png" alt="" class="options-icon">
         </div>
     </div>
 

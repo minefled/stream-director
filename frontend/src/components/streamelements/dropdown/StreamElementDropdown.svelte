@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { createEventDispatcher, onMount } from "svelte";
+    import { createEventDispatcher, onDestroy, onMount } from "svelte";
 
     import DropdownItem from "./DropdownItem.svelte";
 
@@ -9,12 +9,23 @@
 
     let width:number = 0;
     let pageWidth:number = 0;
+    let dropdownElement:HTMLDivElement;
 
     let dispatch = createEventDispatcher();
 
     onMount(() => {
         pageWidth = document.body.getBoundingClientRect().width;
+        document.body.addEventListener("click", onBodyClick);
     });
+
+    onDestroy(() => {
+        document.body.removeEventListener("click", onBodyClick);
+    });
+
+    function onBodyClick(e) {
+        if(e.target.classList.contains("options-icon")) return;
+        dispatch("close");
+    }
 
     function onDeleteClick() {
         dispatch("delete");
@@ -30,7 +41,7 @@
     }
 </script>
 
-<div class="dropdown" style="left: {(x+width+40 > pageWidth) ? x-width : x}px; top: {y}px" bind:clientWidth={width}>
+<div class="dropdown" style="left: {(x+width+40 > pageWidth) ? x-width : x}px; top: {y}px" bind:clientWidth={width} bind:this={dropdownElement}>
     <DropdownItem name="Remove" icon_url="assets/icons/delete.png" color="e14b55" on:click={onDeleteClick}/>
     <DropdownItem name="Copy ID" icon_url="assets/icons/copy.png" on:click={onCopyIDClick} />
     <DropdownItem name="Copy URL" icon_url="assets/icons/copy.png" on:click={onCopyURLClick}/>
