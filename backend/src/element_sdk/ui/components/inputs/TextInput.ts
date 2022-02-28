@@ -1,11 +1,14 @@
 /* == Types == */
-import EventEmitter = require("events");
-
 export interface TextInputOptions {
     /**
      * Sets the position of the input in the ui. The lower the value, the higher up it is
      */
-     position?: number;
+    position?: number;
+
+    /**
+     * Sets the placeholder text that will be visible when the input is empty
+     */
+    placeholder?:string;
 }
 
 /**

@@ -1,8 +1,13 @@
 <script lang="ts">
     import { createEventDispatcher } from "svelte";
 
+    interface TextInputOptions {
+        placeholder?:string;
+    }
+
     export let name:string;
     export let value:string = "";
+    export let options:TextInputOptions = {};
 
     let dispatch = createEventDispatcher();
     let inputElement:HTMLInputElement;
@@ -24,7 +29,14 @@
         {name}    
     </div>
     <div class="input-section">
-        <input type="text" bind:value={value} on:keydown={handleKeyDown} bind:this={inputElement}>
+        <input
+            type="text"
+            placeholder={options.placeholder}
+            
+            bind:value={value}
+            bind:this={inputElement}
+            on:keydown={handleKeyDown}
+        >
     </div>
 </div>
 

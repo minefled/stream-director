@@ -10,6 +10,11 @@ export interface TextAreaOptions {
      * (Defaults to 3)
      */
     rows?:number;
+
+    /**
+     * Sets the placeholder text that will be visible when the input is empty
+     */
+    placeholder?:string;
 }
 
 /**

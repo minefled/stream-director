@@ -7,7 +7,7 @@ export class Demo extends StreamElement {
 
     __classID = "demo-element";
 
-    @ui.TextInput("Text")                                   text:string         = "";
+    @ui.TextInput("Text", {placeholder: "OwO Placeholder"}) text:string         = "";
     @ui.TextArea("Textarea")                                textarea:string     = "";
     @ui.NumberSlider("Number Slider", {min: 0, max: 15})    num:number          = 0;
     @ui.NumberInput("Number")                               num2:number         = 0;

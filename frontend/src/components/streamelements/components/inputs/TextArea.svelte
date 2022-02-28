@@ -3,6 +3,7 @@
 
     interface TextAreaOptions {
         rows?:number;
+        placeholder?:string;
     }
 
     export let name:string;
@@ -25,6 +26,8 @@
         <textarea
             class="textarea"
             rows={options.rows || 3}
+
+            placeholder={options.placeholder}
 
             bind:value={value}
             on:change={dispatchUpdateEvent}
