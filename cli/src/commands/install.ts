@@ -1,5 +1,5 @@
 import clc from "cli-color";
-import { createReadStream, existsSync, rmdirSync, rmSync } from "fs";
+import { createReadStream, existsSync, mkdirSync, rmdirSync, rmSync } from "fs";
 import { moveSync } from "fs-extra";
 import { join } from "path";
 import { exit } from "process";
@@ -38,7 +38,11 @@ export async function install() {
             moveSync(join(installPath, "stream-director-master", "backend"), join(installPath, "backend"), { overwrite: true });
             moveSync(join(installPath, "stream-director-master", "frontend"), join(installPath, "frontend"), { overwrite: true });
 
+            // Delete directories
             rmSync(join(installPath, "stream-director-master"), { recursive: true });
+            rmSync(join(installPath, "backend", "plugins"), { recursive: true });
+
+            mkdirSync(join(installPath, "backend", "plugins"));
 
             console.log(clc.green(`Installing Dependencies...`));
 
@@ -50,12 +54,7 @@ export async function install() {
             execSync("npm i", { cwd: join(installPath, "frontend") });
 
             // Build
-            console.log(clc.green(`Building`));
-
-            console.log(clc.green(` - Building Backend`));
-            execSync("npm run build", { cwd: join(installPath, "backend") });
-
-            console.log(clc.green(` - Building Frontend`));
+            console.log(clc.green(`Building Frontend`));
             execSync("npm run build", { cwd: join(installPath, "frontend") });
 
             console.log();
