@@ -7,7 +7,7 @@ import { download } from "../utils";
 import * as unzipper from "unzipper";
 import { exec, execSync } from "child_process";
 
-export async function install() {
+export async function install(callback:Function|undefined=undefined) {
     let installPath = process.cwd();
     let downloadURL = "https://codeload.github.com/minefled/stream-director/zip/master";
 
@@ -59,6 +59,8 @@ export async function install() {
 
             console.log();
             console.log(clc.green(`Stream Director has been set up successfully!`));
+
+            if(callback) callback();
         });
     
 }

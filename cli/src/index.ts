@@ -4,6 +4,7 @@ import { program } from "commander";
 import clc from "cli-color";
 
 import { install } from "./commands/install";
+import { setup } from "./commands/setup";
 
 console.log(clc.yellowBright     ("╭─────────────────────────╮"));
 console.log(clc.yellowBright.bold("│   Stream Director CLI   │"));
@@ -18,6 +19,12 @@ program.command("install")
     .description("Installs the StreamDirector front- & backend into the current directory")
     .action(() => {
         install();
+    });
+
+program.command("setup")
+    .description("Helps setting Stream Director up")
+    .action(() => {
+        setup();
     });
 
 program.parse();
