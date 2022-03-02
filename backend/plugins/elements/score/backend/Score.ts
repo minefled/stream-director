@@ -1,7 +1,10 @@
-import { StreamElement } from "../../../../src/element_sdk/element/StreamElement";
-import type { ActionExecuteData } from "../../../../src/element_sdk/element/types/ActionExecuteData";
-import type { StreamElementInitializationData } from "../../../../src/element_sdk/element/types/StreamElementInitializationData";
-import { ui } from "../../../../src/element_sdk/ui/ui";
+import {
+    ui,
+    StreamElement,
+
+    ActionExecuteData,
+    StreamElementInitializationData
+} from "../../../../src/exports";
 
 export class Score extends StreamElement {
 

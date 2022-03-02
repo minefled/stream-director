@@ -10,6 +10,7 @@
         "strictPropertyInitialization": false,
         "allowJs": true,
         "esModuleInterop": true,
+        "declaration": true,
 
         "experimentalDecorators": true
     },
