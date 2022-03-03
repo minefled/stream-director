@@ -11,7 +11,7 @@ export async function setup() {
     const twitchName = await prompt(clc.cyanBright("Twitch Channel Name > "));
     console.log();
 
-    console.log(clc.bold("2. Now, please enter the Client ID for your Twitch Application.\nIf you dont know what this is or how to get it, check out\nhttps://github.com/minefled/stream-director/blob/master/README.md\nfor help on setting up.\n"));
+    console.log(clc.bold("2. Now, please enter the Client ID for your Twitch Application.\nIf you dont know what this is or how to get it, check out\nhttps://github.com/minefled/stream-director/blob/master/setupHelp.md\nfor help on setting up.\n"));
     const clientID = await prompt(clc.cyanBright("Application Client ID > "));
     console.log();
 
