@@ -23,10 +23,8 @@
     export let selectedSceneID:string = "";
 
     let _components:Component[] = [];
-    let _groups:UIGroup[] = [];
 
     let components:Component[] = [];
-    let groups:any[] = [];
     let state:{ [key: string]: any; } = {};
 
     let dropdownX:number;
@@ -35,7 +33,6 @@
 
     onMount(() => {
         _components = data.ui.components;
-        _groups = data.ui.groups;
 
         api.events.createEventListener(
             e => e.type == "update_element_state_value",
@@ -65,37 +62,11 @@
 
         //// Update components ////
         components = [];
-        groups = [];
-
-        for(var g of _groups) {
-            groups.push({
-                type: g.type,
-                id: g.id,
-                propertyKeys: g.propertyKeys,
-                components: []
-            });
-        }
 
         for(var c of _components) {
-            if(isInGroup(c.propertyKey)) {
-                for(var gr of groups) {
-                    if(gr.propertyKeys.includes(c.propertyKey)) {
-                        gr.components.push(c);
-                    }
-                }
-            } else {
-                components.push(c);
-            }
+            components.push(c);
         }
     });
-
-    function isInGroup(propertyKey:string):boolean {
-        for(var g of groups) {
-            if(g.propertyKeys.includes(propertyKey)) return true;
-        }
-
-        return false;
-    }
 
     function updateStateValue(propertyKey:string, value:any, sceneID:string = selectedSceneID) {
         for (let i = 0; i < data.state.scenes.length; i++) {

@@ -23,7 +23,7 @@ export class Timer extends StreamElement {
         this.__init(data);
 
         this._addComponent(ui.Separator({ position: 2 }));
-        this._addComponent(ui.Separator({ position: 4 }));
+        this._addComponent(ui.Separator({ position: 5 }));
     }
 
     @ui.Button("Start")
