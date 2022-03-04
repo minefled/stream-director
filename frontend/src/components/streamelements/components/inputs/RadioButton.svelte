@@ -5,9 +5,13 @@
     export let id:string;
     export let name:string;
     export let color:string = null;
+    export let colorSelected:string = null;
+    export let isSelected:boolean;
 
     let backgroundColor:string = "212125";
     let borderColor:string = "28282e";
+    let backgroundColorSelected:string = "272a2e";
+    let borderColorSelected:string = "394047";
 
     let dispatch = createEventDispatcher();
 
@@ -22,13 +26,20 @@
             let hsl = HEXtoHSL(backgroundColor);
             borderColor = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l*1.15}%)`;
         }
+
+        if(colorSelected) {
+            backgroundColor = colorSelected;
+
+            let hsl = HEXtoHSL(backgroundColorSelected);
+            borderColorSelected = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l*1.15}%)`;
+        }
     });
 </script>
 
 <div class="btn">
     <button
         on:click={dispatchClickEvent}
-        style="background-color: #{backgroundColor};border: 1px solid {borderColor};"
+        style="{isSelected ? `background-color: #${backgroundColorSelected};border: 1px solid ${borderColorSelected};` : `background-color: #${backgroundColor};border: 1px solid ${borderColor};`}"
     >{name}</button>
 </div>
 

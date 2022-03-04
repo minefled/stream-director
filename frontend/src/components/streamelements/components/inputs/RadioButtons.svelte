@@ -1,5 +1,7 @@
 <script lang="ts">
-import RadioButton from "./RadioButton.svelte";
+import { createEventDispatcher } from "svelte";
+
+    import RadioButton from "./RadioButton.svelte";
 
     interface RadioOption {
         id:string;
@@ -26,6 +28,7 @@ import RadioButton from "./RadioButton.svelte";
     export let value:any;
 
     let columns:number = 1;
+    let dispatch = createEventDispatcher();
 
     $: columns = Math.max(
         Math.min(Math.floor(Math.sqrt(options.options.length)), 4),
@@ -33,12 +36,24 @@ import RadioButton from "./RadioButton.svelte";
         (options.options.length%2==0) ? 2:1,
         1
     );
+
+    function dispatchUpdateEvent() {
+        dispatch("update", { value });
+    }
 </script>
 
 <div class="radio-button-group">
     <div class="options" style="grid-template-columns: {"1fr ".repeat(columns)}">
         {#each options.options as opt}
-            <RadioButton id={opt.id} name={opt.name} color={options.color} />
+            <RadioButton
+                id={opt.id}
+                name={opt.name}
+                color={options.color}
+                colorSelected={options.activatedColor}
+                isSelected={value == opt.id}
+
+                on:click={() => { value = opt.id; dispatchUpdateEvent(); }}
+            />
         {/each}
     </div>
 </div>

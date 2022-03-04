@@ -137,6 +137,7 @@ import ButtonGroup from "./groups/ButtonGroup.svelte";
         <RadioButtons
             value={state[c.propertyKey] || ""}
             options={c.options}
+            on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
         />
 
     {:else if c.type == "button-group"}
