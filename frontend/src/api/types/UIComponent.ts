@@ -1,7 +1,10 @@
 export interface Component {
     type:string;
 
-    name:string;
-    propertyKey:string;
+    id?:string;
+    name?:string;
+    propertyKey?:string;
     options:any;
+
+    subComponents?:Component[];
 }

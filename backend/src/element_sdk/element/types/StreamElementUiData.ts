@@ -8,5 +8,4 @@ interface UiPanelData {
 export interface StreamElementUiData {
     panel:UiPanelData;
     components:ComponentInterface[];
-    groups:UIGroupInterface[];
 }

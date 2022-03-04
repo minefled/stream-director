@@ -23,8 +23,6 @@ export class StreamElement {
     __uiComponents:ComponentInterface[]     = [];
     __sharedStateVariables:SharedState[]    = [];
 
-    __uiGroups:UIGroupInterface[]       = [];
-
     __scenes:SceneState[]                   = [];
     __selectedScene:string                  = "";
 
@@ -39,12 +37,31 @@ export class StreamElement {
 
     __init(initializationData:StreamElementInitializationData,) {
         this.__uiComponents         = [...(Object.getPrototypeOf(this).__uiComponents || [])];
-        this.__uiGroups             = [...(Object.getPrototypeOf(this).__uiGroups || [])];
         this.__sharedStateVariables = [...(Object.getPrototypeOf(this).__sharedStateVariables || [])];
 
         this.__elementManager = initializationData.elementManager;
         this.__loadFromData(initializationData.data);
         this.__selectedScene = initializationData.selectedSceneID;
+
+        /// Filter Ui Components ///
+        for(var c of this.__uiComponents) {
+            if(c.type == "button-group") {
+                //console.log("!!!!!", c);
+                let removeComponents:Array<ComponentInterface> = [];
+
+                for(var i=0; i<this.__uiComponents.length; i++) {
+                    if(this.__uiComponents[i] == c) continue;
+
+                    if(c.subComponents?.includes(this.__uiComponents[i])) {
+                        removeComponents.push(this.__uiComponents[i]);
+                    }
+
+                    //console.log(this.__uiComponents[i], removeIndices);
+                }
+
+                this.__uiComponents = this.__uiComponents.filter(x => !removeComponents.includes(x))
+            }
+        }
 
         this.__getAllStateKeys().forEach((sk) => {
             Object.defineProperty(this, sk, {
@@ -175,8 +192,7 @@ export class StreamElement {
             panel: {
                 name: this.__config.name
             },
-            components: this.__uiComponents,
-            groups: this.__uiGroups
+            components: this.__uiComponents
         }
     }
 

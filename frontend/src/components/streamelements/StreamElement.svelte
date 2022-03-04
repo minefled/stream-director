@@ -151,22 +151,6 @@
                 on:update={e => {handleUpdateEvent(e.detail?.e, e.detail?.propertyKey);}}
                 on:click={e => {handleButtonClickEvent(e.detail?.e, e.detail?.propertyKey);}}
             />
-
-            {#each groups as g}
-                {#if g.type == "buttons"}
-                    <ButtonGroup numberOfButtons={g.components.length}>
-                        {#each g.components as c}
-                            {#if c.type == "button"}
-                                <Button
-                                    name={c.name}
-                                    options={c.options || {}}
-                                    on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
-                                />
-                            {/if}
-                        {/each}
-                    </ButtonGroup>
-                {/if}
-            {/each}
         </div>
     </div>
 </div>

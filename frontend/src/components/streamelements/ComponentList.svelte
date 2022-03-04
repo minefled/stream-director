@@ -11,10 +11,12 @@
 
     import Separator from "./components/Separator.svelte";
     import Headline from "./components/Headline.svelte";
-import NumberInput from "./components/inputs/NumberInput.svelte";
-import ToggleButton from "./components/inputs/ToggleButton.svelte";
-import Checkbox from "./components/inputs/Checkbox.svelte";
-import TextArea from "./components/inputs/TextArea.svelte";
+    import NumberInput from "./components/inputs/NumberInput.svelte";
+    import ToggleButton from "./components/inputs/ToggleButton.svelte";
+    import Checkbox from "./components/inputs/Checkbox.svelte";
+    import TextArea from "./components/inputs/TextArea.svelte";
+    import RadioButtons from "./components/inputs/RadioButtons.svelte";
+import ButtonGroup from "./groups/ButtonGroup.svelte";
 
     //// Public Variables ////
     export let components:Component[] = [];
@@ -131,6 +133,24 @@ import TextArea from "./components/inputs/TextArea.svelte";
             options={c.options}
             on:update={e => {handleUpdateEvent(e, c.propertyKey);}}
         />
+    {:else if c.type == "radio-buttons"}
+        <RadioButtons
+            value={state[c.propertyKey] || ""}
+            options={c.options}
+        />
+
+    {:else if c.type == "button-group"}
+        <ButtonGroup
+            numberOfButtons={c.subComponents.length}
+        >
+            {#each c.subComponents as subc}
+            <Button
+                name={subc.name}
+                options={subc.options || {}}
+                on:click={e => {handleButtonClickEvent(e, c.propertyKey);}}
+            />
+            {/each}
+        </ButtonGroup>
 
     {:else if c.type == "separator"}
         <Separator />

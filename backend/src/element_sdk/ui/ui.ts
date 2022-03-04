@@ -6,8 +6,9 @@ import { NumberInput }  from "./components/inputs/NumberInput";
 import { ToggleButton } from "./components/inputs/ToggleButton";
 import { Checkbox }     from "./components/inputs/Checkbox";
 import { TextArea }     from "./components/inputs/TextArea";
+import { RadioButtons } from "./components/inputs/RadioButtons";
 
-import { ButtonGroup }  from "./modifiers/ButtonGroup";
+import { ButtonGroup }  from "./groups/ButtonGroup";
 
 import { Separator }    from "./components/Separator";
 import { Headline }     from "./components/Headline";
@@ -21,6 +22,7 @@ export const ui = {
     ToggleButton,
     Checkbox,
     TextArea,
+    RadioButtons,
 
     ButtonGroup,
 
